@@ -5,7 +5,7 @@ const navigation = [
   {
     title: "강의 목록",
     href: "/lectures",
-    icon: "bi bi-people"
+    icon: "bi bi-card-text"
   },
   {
     title: "Dashboard",

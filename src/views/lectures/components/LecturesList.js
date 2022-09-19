@@ -1,57 +1,11 @@
-import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
-import user1 from "../../assets/images/users/user1.jpg";
-import user2 from "../../assets/images/users/user2.jpg";
-import user3 from "../../assets/images/users/user3.jpg";
-import user4 from "../../assets/images/users/user4.jpg";
-import user5 from "../../assets/images/users/user5.jpg";
-
-// const tableData = [
-//   {
-//     avatar: user1,
-//     name: "Hanna Gover",
-//     email: "hgover@gmail.com",
-//     project: "Flexy React",
-//     status: "pending",
-//     weeks: "35",
-//     budget: "95K",
-//   },
-//   {
-//     avatar: user2,
-//     name: "Hanna Gover",
-//     email: "hgover@gmail.com",
-//     project: "Lading pro React",
-//     status: "done",
-//     weeks: "35",
-//     budget: "95K",
-//   },
-//   {
-//     avatar: user3,
-//     name: "Hanna Gover",
-//     email: "hgover@gmail.com",
-//     project: "Elite React",
-//     status: "holt",
-//     weeks: "35",
-//     budget: "95K",
-//   },
-//   {
-//     avatar: user4,
-//     name: "Hanna Gover",
-//     email: "hgover@gmail.com",
-//     project: "Flexy React",
-//     status: "pending",
-//     weeks: "35",
-//     budget: "95K",
-//   },
-//   {
-//     avatar: user5,
-//     name: "Hanna Gover",
-//     email: "hgover@gmail.com",
-//     project: "Ample React",
-//     status: "done",
-//     weeks: "35",
-//     budget: "95K",
-//   },
-// ];
+import { Card, CardBody, CardTitle, Table, Container, Row, Col } from "reactstrap";
+import user1 from "../../../assets/images/users/user1.jpg";
+import user2 from "../../../assets/images/users/user2.jpg";
+import user3 from "../../../assets/images/users/user3.jpg";
+import user4 from "../../../assets/images/users/user4.jpg";
+import user5 from "../../../assets/images/users/user5.jpg";
+import { Button } from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 const tableData = [
   {
@@ -61,7 +15,6 @@ const tableData = [
     status: "danger",
     startDate: "2022-01-03",
     endDate: "2022-06-30",
-    budget: "95K",
   },
   {
     avatar: user2,
@@ -70,7 +23,6 @@ const tableData = [
     status: "success",
     startDate: "2022-01-03",
     endDate: "2022-06-30",
-    budget: "95K",
   },
   {
     avatar: user3,
@@ -79,7 +31,6 @@ const tableData = [
     status: "warning",
     startDate: "2022-01-03",
     endDate: "2022-06-30",
-    budget: "95K",
   },
   {
     avatar: user4,
@@ -88,7 +39,6 @@ const tableData = [
     status: "danger",
     startDate: "2022-01-03",
     endDate: "2022-06-30",
-    budget: "95K",
   },
   {
     avatar: user5,
@@ -97,19 +47,28 @@ const tableData = [
     status: "success",
     startDate: "2022-01-03",
     endDate: "2022-06-30",
-    budget: "95K",
   },
 ];
 
-const ProjectTables = (props) => {
+const LecturesList = (props) => {
   return (
     <div>
       <Card>
         <CardBody>
-          <CardTitle tag="h3">{ props.title }</CardTitle>
-          <CardSubtitle className="mb-2 text-muted" tag="h5">
-            { props.subTitle }
-          </CardSubtitle>
+          <Container>
+            <Row className="d-flex">
+              <Col className="p-2 w-100">
+                <CardTitle tag="h3">{ props.title }</CardTitle>
+              </Col>
+              <Col className="d-flex flex-row-reverse align-items-center">
+                <Link to="/lecture/register">
+                  <Button variant="secondary">
+                    강의 등록
+                  </Button>
+                </Link>
+              </Col>
+            </Row>
+          </Container>
 
           <Table className="no-wrap mt-3 align-middle" responsive borderless>
             <thead>
@@ -119,7 +78,7 @@ const ProjectTables = (props) => {
 
                 <th>Status</th>
                 <th>Period</th>
-                <th>수강생 수</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -145,7 +104,13 @@ const ProjectTables = (props) => {
                     <span className={`p-2 bg-${ tdata.status } rounded-circle d-inline-block ms-3`}></span>
                   </td>
                   <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
-                  <td>{ tdata.budget }</td>
+                  <td>
+                    <Link to="/lecture">
+                      <Button variant="outline-primary">
+                        상세 보기
+                      </Button>
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -156,4 +121,4 @@ const ProjectTables = (props) => {
   );
 };
 
-export default ProjectTables;
+export default LecturesList;

@@ -1,15 +1,11 @@
 /*******************/
-// Theme Fonts
-/********************/
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap");
-$font-family-sans-serif: "Montserrat", sans-serif;
-/*******************/
 // Theme Colors
 /********************/
 $primary: #2962ff;
 $info: #26c6da;
 $danger: #f62d51;
 $success: #39c449;
+$menuSuccess: rgba(57, 157, 68, 0.87);
 $warning: #ffbc34;
 $dark: #1e2a35;
 $light: #eaf2fb;
@@ -19,6 +15,7 @@ $theme-colors: (
   "primary": $primary,
   "secondary": $secondary,
   "success": $success,
+  "menuSuccess": $menuSuccess,
   "info": $info,
   "warning": $warning,
   "danger": $danger,

@@ -1,14 +1,13 @@
 import { Col, Row } from "reactstrap";
-import ProjectTables from "../components/dashboard/ProjectTable";
+import LecturesList from "./components/LecturesList";
 
 const Lectures = () => {
     return (
         <div>
             <Row>
                 <Col lg="12">
-                    <ProjectTables
+                    <LecturesList
                         title="강의 리스트"
-                        subTitle="강의 리스트 입니다."
                     />
                 </Col>
             </Row>
