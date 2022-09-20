@@ -7,24 +7,26 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const modify = () => {
     window.location.href="/lectures"
+    // TODO
 }
 
 const cancel = () => {
     window.location.href="/lectures"
+    // TODO
 }
 
 const DatePickerComponent = () => {
-    const [startDate, setStartDate] = new Date();
-    const [endDate, setEndDate] = new Date();
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
 
-    const StartCustomInput = ({ value, onClick }, ref) => (
-        <Button variant="primary" onClick={onClick} ref={ref}>
+    const StartCustomInput = ({ value }, ref) => (
+        <Button variant="primary" ref={ref}>
           {value}
         </Button>
       );
 
-      const EndCustomInput = ({ value, onClick }, ref) => (
-        <Button variant="primary" onClick={onClick} ref={ref}>
+      const EndCustomInput = ({ value }, ref) => (
+        <Button variant="primary" ref={ref}>
           {value}
         </Button>
       );
@@ -32,18 +34,16 @@ const DatePickerComponent = () => {
     return (
       <>
         <DatePicker
-          selected={startDate}
-          // onChange={setStartDate()}
-          readOnly
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
+           selected={startDate}
+           onChange={(date) => setStartDate(date)}
+           selectsStart
+           startDate={startDate}
+           endDate={endDate}
           customInput={<StartCustomInput />}
         />
         <DatePicker
           selected={endDate}
-          // onChange={setEndDate()}
-          readOnly
+          onChange={(date) => setEndDate(date)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
