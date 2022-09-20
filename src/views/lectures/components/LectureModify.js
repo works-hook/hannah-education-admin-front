@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, Row, Col, CardTitle, CardBody, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { Button, Container } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,14 +20,14 @@ const DatePickerComponent = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
-    const StartCustomInput = ({ value }, ref) => (
-        <Button variant="primary" ref={ref}>
+    const StartCustomInput = (value) => (
+        <Button variant="primary">
           {value}
         </Button>
       );
 
-      const EndCustomInput = ({ value }, ref) => (
-        <Button variant="primary" ref={ref}>
+      const EndCustomInput = (value) => (
+        <Button variant="primary">
           {value}
         </Button>
       );
@@ -86,7 +87,7 @@ const LectureModify = () => {
                         </FormGroup>
                         <FormGroup>
                             <Label for="thumbnail">썸네일</Label>
-                            <Input id="thumbnail" name="thumbnail" type="file" bsPrefix={"어쨋든 썸네일임.png"}/>
+                            <Input id="thumbnail" name="thumbnail" type="file" value={"어쨋든 썸네일임.png"}/>
                             <FormText>Thumbnail 사진을 업로드 해주세요.</FormText>
                         </FormGroup>
                         <FormGroup>
