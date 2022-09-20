@@ -42,7 +42,7 @@ const ClassModifiy = () => {
                         </Col>
                         <Col className="d-flex flex-row-reverse align-items-center">
                             <Button variant="secondary" onClick={toggle}>
-                                강의 등록
+                                수업 등록
                             </Button>
                         </Col>
                     </Row>

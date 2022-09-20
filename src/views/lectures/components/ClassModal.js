@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from "reactstrap";
+import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from "reactstrap";
 import Writer from './Writer';
 
 
@@ -7,7 +7,6 @@ const ClassModal = (props) => {
     const [assignmentState, setAssignmentState] = useState(false);
     const assignmentToggle = () => { 
         setAssignmentState(!assignmentState)
-
     }
 
     return (
@@ -28,6 +27,34 @@ const ClassModal = (props) => {
                         <Label for="content">내용</Label>
                         <Writer />
                     </FormGroup>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label for="date">
+                                    시작 일
+                                </Label>
+                                <Input
+                                    id="date"
+                                    name="date"
+                                    type="date"
+                                    value="2022-09-01"
+                                />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="time">
+                                    시작 시간
+                                </Label>
+                                <Input
+                                    id="time"
+                                    name="time"
+                                    type="time"
+                                    value="20:11"
+                                />
+                            </FormGroup>
+                        </Col>
+                    </Row>
                     <div className="d-flex">
                         <Label for="assignmentState">과제 제출</Label>
                         <FormGroup switch className="mx-lg-3">

@@ -36,6 +36,32 @@ const LectureRegister = () => {
                                 <Label for="content">소개글</Label>
                                 <Writer />
                             </FormGroup>
+                            <Row>
+                                <Col>
+                                    <FormGroup>
+                                        <Label for="startDate">
+                                            시작 일자
+                                        </Label>
+                                        <Input
+                                            id="startDate"
+                                            name="startDate"
+                                            type="date"
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col>
+                                    <FormGroup>
+                                        <Label for="startDate">
+                                            종료 일자
+                                        </Label>
+                                        <Input
+                                            id="startDate"
+                                            name="startDate"
+                                            type="date"
+                                        />
+                                    </FormGroup>
+                                </Col>
+                            </Row>
                             <FormGroup>
                                 <Label for="thumbnail">썸네일</Label>
                                 <Input id="thumbnail" name="thumbnail" type="file"/>
