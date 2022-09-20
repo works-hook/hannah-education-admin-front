@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 import { Card, Row, Col, CardTitle, CardBody, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { Button, Container } from "react-bootstrap";
-import "react-datepicker/dist/react-datepicker.css";
 import { DatePicker } from "react-datepicker";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const modify = () => {
     window.location.href="/lectures"
@@ -17,29 +18,29 @@ const cancel = () => {
 }
 
 const DatePickerComponent = () => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date("2022-09-20"));
+    const [endDate, setEndDate] = useState(new Date("2022-09-20"));
 
-    const StartCustomInput = (value) => (
-        <Button variant="primary">
+    const StartCustomInput = forwardRef(({value, onClick}, ref) => (
+        <Button variant="primary" onClick={onClick} ref={ref}>
           {value}
         </Button>
-      );
+      ));
 
-      const EndCustomInput = (value) => (
-        <Button variant="primary">
+      const EndCustomInput = forwardRef(({value, onClick}, ref) => (
+        <Button variant="primary" onClick={onClick} ref={ref}>
           {value}
         </Button>
-      );
+      ));
 
     return (
       <>
         <DatePicker
-           selected={startDate}
-           onChange={(date) => setStartDate(date)}
-           selectsStart
-           startDate={startDate}
-           endDate={endDate}
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
           customInput={<StartCustomInput />}
         />
         <DatePicker
