@@ -1,8 +1,9 @@
 import { Card, Row, Col, CardTitle, CardBody, Form, FormGroup, Label, Input, FormText } from "reactstrap";
-import { Button } from "react-bootstrap";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
+import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from "react-datepicker";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const modify = () => {
     window.location.href="/lectures"
@@ -11,6 +12,47 @@ const modify = () => {
 const cancel = () => {
     window.location.href="/lectures"
 }
+
+const DatePickerComponent = () => {
+    const [startDate, setStartDate] = new Date();
+    const [endDate, setEndDate] = new Date();
+
+    const StartCustomInput = ({ value, onClick }, ref) => (
+        <Button variant="primary" onClick={onClick} ref={ref}>
+          {value}
+        </Button>
+      );
+
+      const EndCustomInput = ({ value, onClick }, ref) => (
+        <Button variant="primary" onClick={onClick} ref={ref}>
+          {value}
+        </Button>
+      );
+
+    return (
+      <>
+        <DatePicker
+          selected={startDate}
+          // onChange={setStartDate()}
+          readOnly
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+          customInput={<StartCustomInput />}
+        />
+        <DatePicker
+          selected={endDate}
+          // onChange={setEndDate()}
+          readOnly
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+          customInput={<EndCustomInput />}
+        />
+      </>
+    );
+  };
 
 const LectureModify = () => {
     return (<Row>
@@ -46,6 +88,9 @@ const LectureModify = () => {
                             <Label for="thumbnail">썸네일</Label>
                             <Input id="thumbnail" name="thumbnail" type="file" bsPrefix={"어쨋든 썸네일임.png"}/>
                             <FormText>Thumbnail 사진을 업로드 해주세요.</FormText>
+                        </FormGroup>
+                        <FormGroup>
+                            <DatePickerComponent />
                         </FormGroup>
                         <Container>
                             <Row className="d-flex">
