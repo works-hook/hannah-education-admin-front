@@ -1,11 +1,11 @@
 import { Card, CardBody, CardTitle, Table, Container, Row, Col } from "reactstrap";
-import user1 from "../../../assets/images/users/user1.jpg";
-import user2 from "../../../assets/images/users/user2.jpg";
-import user3 from "../../../assets/images/users/user3.jpg";
-import user4 from "../../../assets/images/users/user4.jpg";
-import user5 from "../../../assets/images/users/user5.jpg";
+import user1 from "../../assets/images/users/user1.jpg";
+import user2 from "../../assets/images/users/user2.jpg";
+import user3 from "../../assets/images/users/user3.jpg";
+import user4 from "../../assets/images/users/user4.jpg";
+import user5 from "../../assets/images/users/user5.jpg";
 import { Button } from "react-bootstrap";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const tableData = [
   {
@@ -61,7 +61,7 @@ const LecturesList = (props) => {
                 <CardTitle tag="h3">{ props.title }</CardTitle>
               </Col>
               <Col className="d-flex flex-row-reverse align-items-center">
-                <Link to="/lecture/register">
+                <Link to="/register">
                   <Button variant="secondary">
                     강의 등록
                   </Button>
@@ -105,7 +105,7 @@ const LecturesList = (props) => {
                   </td>
                   <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
                   <td>
-                    <Link to="/lecture">
+                    <Link to="/modify">
                       <Button variant="outline-primary">
                         상세 보기
                       </Button>

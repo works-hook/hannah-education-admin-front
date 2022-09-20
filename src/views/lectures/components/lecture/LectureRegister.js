@@ -1,8 +1,8 @@
+import React from "react";
 import { Card, Row, Col, CardTitle, CardBody, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { Button } from "react-bootstrap";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Container } from "react-bootstrap";
+import Writer from "../Writer";
 
 const save = () => {
     window.location.href="/lectures"
@@ -13,6 +13,7 @@ const cancel = () => {
 }
 
 const LectureRegister = () => {
+
     return (<Row>
             <Col>
                 <Card>
@@ -33,11 +34,7 @@ const LectureRegister = () => {
                             </FormGroup>
                             <FormGroup>
                                 <Label for="content">소개글</Label>
-                                <CKEditor
-                                    editor={ ClassicEditor }
-                                    id="content"
-                                    name="content"
-                                />
+                                <Writer />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="thumbnail">썸네일</Label>

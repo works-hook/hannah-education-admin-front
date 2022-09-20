@@ -1,4 +1,4 @@
-import ProjectTables from "../lectures/components/LecturesList";
+import ProjectTables from "../lectures/LecturesList";
 import { Row, Col, Table, Card, CardTitle, CardBody } from "reactstrap";
 
 const Tables = () => {

@@ -7,8 +7,8 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 /***** Pages ****/
 
 const Lectures = lazy(() => import("../views/lectures/Lectures.js"))
-const LectureRegister = lazy(() => import("../views/lectures/components/LectureRegister.js"))
-const LectureModify = lazy(() => import("../views/lectures/components/LectureModify.js"))
+const LectureRegister = lazy(() => import("../views/lectures/LectureRegister.js"))
+const LectureModify = lazy(() => import("../views/lectures/LectureModify.js"))
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts"));
@@ -28,9 +28,9 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/lectures" /> },
-      { path: "/lectures", exact: true, element: <Lectures />},
-      { path: "/lecture/register", exact: true, element: <LectureRegister /> },
-      { path: "/lecture", exact: true, element: <LectureModify />},
+      { path: "/lectures", exact: true, element: <Lectures /> },
+      { path: "/register", exact: true, element: <LectureRegister /> },
+      { path: "/modify", expect: true, element: <LectureModify /> },
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },

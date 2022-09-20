@@ -1,7 +1,7 @@
 import { Col, Row } from "reactstrap";
 import SalesChart from "../components/dashboard/SalesChart";
 import Feeds from "../components/dashboard/Feeds";
-import ProjectTables from "./lectures/components/LecturesList";
+import ProjectTables from "./lectures/LecturesList";
 
 import Blog from "../components/dashboard/Blog";
 import bg1 from "../assets/images/bg/bg1.jpg";

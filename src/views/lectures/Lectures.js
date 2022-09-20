@@ -1,5 +1,5 @@
 import { Col, Row } from "reactstrap";
-import LecturesList from "./components/LecturesList";
+import LecturesList from "./LecturesList";
 
 const Lectures = () => {
     return (
