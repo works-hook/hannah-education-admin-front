@@ -80,7 +80,7 @@ const ClassModal = (props) => {
             <ModalFooter>
                 <Button color="primary" onClick={ props.toggle }>저장하기</Button>{''}
                 <Button color="danger" onClick={ props.toggle }>삭제하기</Button>{''}
-                <Button color="outline-warning" onClick={ props.toggle }>취소</Button>
+                <Button color="outline-secondary" onClick={ props.toggle }>취소</Button>
             </ModalFooter>
         </Modal>
     );

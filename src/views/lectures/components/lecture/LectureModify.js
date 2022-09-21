@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col, CardTitle, CardBody, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import { Card, Row, Col, CardTitle, CardBody, Form, FormGroup, Label, Input } from "reactstrap";
 import { Button } from "react-bootstrap";
 import Writer from "../Writer";
 
@@ -68,7 +68,6 @@ const LectureModify = () => {
                         <FormGroup>
                             <Label for="thumbnail">썸네일</Label>
                             <Input id="thumbnail" name="thumbnail" type="file" />
-                            <FormText>Thumbnail 사진을 업로드 해주세요.</FormText>
                         </FormGroup>
                         <Row>
                             <Col>
