@@ -1,5 +1,5 @@
 import {Alert, Card, CardBody, CardTitle, Col, Container, Form, FormGroup, Input, Label, Row, Table} from "reactstrap";
-import Writer from "./components/Writer";
+import Writer from "../utils/Writer";
 import { Button } from "react-bootstrap";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -17,19 +17,19 @@ const cancel = () => {
 
 const tableData = [
     {
-        title: "1. java 자료형",
+        title: "java 자료형",
         classDate: "2022-01-03 13:00"
     },
     {
-        title: "2. java 클래스",
+        title: "java 클래스",
         classDate: "2022-01-03 13:00"
     },
     {
-        title: "3. java 추상화",
+        title: "java 추상화",
         classDate: "2022-01-03 13:00"
     },
     {
-        title: "4. java 인터페이스",
+        title: "java 인터페이스",
         classDate: "2022-01-03 13:00"
     },
 ];
@@ -86,12 +86,12 @@ const LectureClass = (props) => {
                                     </Col>
                                     <Col>
                                         <FormGroup>
-                                            <Label for="startDate">
+                                            <Label for="endDate">
                                                 종료 일자
                                             </Label>
                                             <Input
-                                                id="startDate"
-                                                name="startDate"
+                                                id="endDate"
+                                                name="endDate"
                                                 type="date"
                                                 value="2022-12-01"
                                             />
@@ -105,7 +105,7 @@ const LectureClass = (props) => {
                                 <Row>
                                     <Col>
                                         <Button variant="primary" onClick={ modify }>
-                                            강의 { isRegistered ? "등록" : "수정" }하기
+                                            { isRegistered ? "등록" : "수정" }하기
                                         </Button>
                                         { !isRegistered && (
                                             <Button variant="danger" className="mx-lg-3" onClick={ modify }>
@@ -151,6 +151,7 @@ const LectureClass = (props) => {
                                     <Table className="no-wrap mt-3 align-middle" responsive borderless>
                                         <thead>
                                         <tr>
+                                            <td>No</td>
                                             <th>제목</th>
                                             <th>Period</th>
                                             <th></th>
@@ -159,6 +160,7 @@ const LectureClass = (props) => {
                                         <tbody>
                                         {tableData.map((tdata, index) => (
                                             <tr key={ index } className="border-top">
+                                                <td>{ index + 1 }</td>
                                                 <td>{ tdata.title }</td>
                                                 <td>{ tdata.classDate }</td>
                                                 <td className="d-flex justify-content-sm-end px-lg-5">

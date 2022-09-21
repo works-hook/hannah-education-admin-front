@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
-import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from "reactstrap";
-import Writer from './Writer';
+import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Collapse } from "reactstrap";
+import Writer from '../../utils/Writer';
 
 
 const ClassModal = (props) => {
@@ -63,20 +63,20 @@ const ClassModal = (props) => {
                                 id="assignmentState"
                                 name="assignmentState"
                                 type="switch"
-                                checked={assignmentState}
-                                onClick={assignmentToggle}
-                                size="lx"
+                                checked={ assignmentState }
+                                onClick={ assignmentToggle }
+                                size="xxl"
                             />
                         </FormGroup>
                     </div>
-                </Form>
-                { assignmentState && (
+
+                    <Collapse isOpen={ assignmentState }>
                         <FormGroup>
                             <Label for="assignmentContent">과제 내용</Label>
                             <Writer />
                         </FormGroup>
-                    )
-                }
+                    </Collapse>
+                </Form>
             </ModalBody>
             <ModalFooter>
                 <Button color="primary" onClick={ props.toggle }>

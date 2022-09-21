@@ -9,44 +9,54 @@ import user5 from "../../assets/images/users/user5.jpg";
 
 const tableData = [
     {
+        id: 1,
         avatar: user1,
         name: "Hanna Gover",
-        project: "Flexy React",
-        status: "danger",
-        startDate: "2022-01-03",
-        endDate: "2022-06-30",
-    },
-    {
-        avatar: user2,
-        name: "Hanna Gover",
-        project: "Lading pro React",
+        progress: "100",
         status: "success",
         startDate: "2022-01-03",
         endDate: "2022-06-30",
+        studentCount: "112",
     },
     {
-        avatar: user3,
+        id: 2,
+        avatar: user2,
         name: "Hanna Gover",
-        project: "Elite React",
+        progress: "24",
         status: "warning",
         startDate: "2022-01-03",
         endDate: "2022-06-30",
+        studentCount: "20",
     },
     {
+        id: 3,
+        avatar: user3,
+        name: "Hanna Gover",
+        progress: "87",
+        status: "warning",
+        startDate: "2022-01-03",
+        endDate: "2022-06-30",
+        studentCount: "64",
+    },
+    {
+        id: 4,
         avatar: user4,
         name: "Hanna Gover",
-        project: "Flexy React",
+        progress: "34",
+        status: "warning",
+        startDate: "2022-01-03",
+        endDate: "2022-06-30",
+        studentCount: "53",
+    },
+    {
+        id: 5,
+        avatar: user5,
+        name: "Hanna Gover",
+        progress: "0",
         status: "danger",
         startDate: "2022-01-03",
         endDate: "2022-06-30",
-    },
-    {
-        avatar: user5,
-        name: "Hanna Gover",
-        project: "Ample React",
-        status: "success",
-        startDate: "2022-01-03",
-        endDate: "2022-06-30",
+        studentCount: "11",
     },
 ];
 
@@ -58,16 +68,19 @@ const Lectures = () => {
                 <Table className="no-wrap mt-3 align-middle" responsive borderless>
                     <thead>
                     <tr>
+                        <th>No</th>
                         <th>제목</th>
-                        <th>설명</th>
-                        <th>Status</th>
                         <th>Period</th>
+                        <th>Status</th>
+                        <th>수강생</th>
+                        <th>진행률</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     { tableData.map((tdata, index) => (
                         <tr key={ index } className="border-top">
+                            <td>{ tdata.id }</td>
                             <td>
                                 <div className="d-flex align-items-center p-2">
                                     <img
@@ -83,13 +96,14 @@ const Lectures = () => {
                                     </div>
                                 </div>
                             </td>
-                            <td>{ tdata.project }</td>
+                            <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
                             <td>
                                 <span className={`p-2 bg-${ tdata.status } rounded-circle d-inline-block ms-3`}></span>
                             </td>
-                            <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
+                            <td>{ tdata.studentCount + "명" }</td>
+                            <td>{ tdata.progress + "%" }</td>
                             <td>
-                                <Link to="/student">
+                                <Link to={ "/student/" + tdata.id }>
                                     <Button variant="outline-primary">
                                         상세 보기
                                     </Button>

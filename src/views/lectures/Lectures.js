@@ -77,16 +77,18 @@ const Lectures = () => {
                 <Table className="no-wrap mt-3 align-middle" responsive borderless>
                     <thead>
                     <tr>
+                        <th>No.</th>
                         <th>제목</th>
                         <th>설명</th>
-                        <th>Status</th>
                         <th>Period</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     { tableData.map((tdata, index) => (
                         <tr key={ index } className="border-top">
+                            <td>{ tdata.id }</td>
                             <td>
                                 <div className="d-flex align-items-center p-2">
                                     <img
@@ -103,10 +105,10 @@ const Lectures = () => {
                                 </div>
                             </td>
                             <td>{ tdata.project }</td>
+                            <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
                             <td>
                                 <span className={`p-2 bg-${ tdata.status } rounded-circle d-inline-block ms-3`}></span>
                             </td>
-                            <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
                             <td>
                                 <Link to={`/lecture/${ tdata.id }`}>
                                     <Button variant="outline-primary">

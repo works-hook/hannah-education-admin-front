@@ -10,6 +10,7 @@ const Lectures = lazy(() => import("../views/lectures/Lectures.js"))
 const Lecture = lazy(() => import("../views/lectures/Lecture.js"))
 
 const Students = lazy(() => import("../views/student/Students.js"))
+const Student = lazy(() => import("../views/student/Student"))
 
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
@@ -35,7 +36,8 @@ const ThemeRoutes = [
       { path: "/lecture/:lectureId", exact: true, element: <Lecture isRegistered={false} /> },
       { path: "/lecture", exact: true, element: <Lecture isRegistered={true} /> },
 
-      { path: "/students", exact: true, element: <Students />},
+      { path: "/students", exact: true, element: <Students /> },
+      { path: "/student/:lectureId", exact: true, element: <Student /> },
 
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
