@@ -9,6 +9,9 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 const Lectures = lazy(() => import("../views/lectures/Lectures.js"))
 const LectureRegister = lazy(() => import("../views/lectures/LectureRegister.js"))
 const LectureModify = lazy(() => import("../views/lectures/LectureModify.js"))
+
+const Students = lazy(() => import("../views/student/Students.js"))
+
 const Starter = lazy(() => import("../views/Starter.js"));
 const About = lazy(() => import("../views/About.js"));
 const Alerts = lazy(() => import("../views/ui/Alerts"));
@@ -31,6 +34,9 @@ const ThemeRoutes = [
       { path: "/lectures", exact: true, element: <Lectures /> },
       { path: "/register", exact: true, element: <LectureRegister /> },
       { path: "/modify", expect: true, element: <LectureModify /> },
+
+      { path: "/students", exact: true, element: <Students />},
+
       { path: "/starter", exact: true, element: <Starter /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/alerts", exact: true, element: <Alerts /> },

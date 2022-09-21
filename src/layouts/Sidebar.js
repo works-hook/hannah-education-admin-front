@@ -3,9 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
   {
-    title: "강의 목록",
+    title: "강의 관리",
     href: "/lectures",
     icon: "bi bi-card-text"
+  },
+  {
+    title: "수강생 관리",
+    href: "/students",
+    icon: "bi bi-people"
   },
   {
     title: "Dashboard",
