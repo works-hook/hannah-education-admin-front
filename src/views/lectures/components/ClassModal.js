@@ -5,13 +5,14 @@ import Writer from './Writer';
 
 const ClassModal = (props) => {
     const [assignmentState, setAssignmentState] = useState(false);
+
     const assignmentToggle = () => { 
         setAssignmentState(!assignmentState)
     }
 
     return (
-        <Modal size="xl" isOpen={props.modal} toggle={props.toggle}>  
-            <ModalHeader>강의 수정하기</ModalHeader>
+        <Modal size="xl" isOpen={ props.modal } toggle={ props.toggle }>
+            <ModalHeader>수업 { props.isModify ? "수정" : "등록" }하기</ModalHeader>
             <ModalBody>
                 <Form>
                     <FormGroup>
@@ -78,9 +79,17 @@ const ClassModal = (props) => {
                 }
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" onClick={ props.toggle }>저장하기</Button>{''}
-                <Button color="danger" onClick={ props.toggle }>삭제하기</Button>{''}
-                <Button color="outline-secondary" onClick={ props.toggle }>취소</Button>
+                <Button color="primary" onClick={ props.toggle }>
+                    { props.isModify ? "수정" : "등록" }하기
+                </Button>{''}
+                { props.isModify && (
+                    <Button color="danger" onClick={ props.toggle }>
+                        삭제하기
+                    </Button>
+                )}
+                <Button color="outline-secondary" onClick={ props.toggle }>
+                    취소
+                </Button>
             </ModalFooter>
         </Modal>
     );

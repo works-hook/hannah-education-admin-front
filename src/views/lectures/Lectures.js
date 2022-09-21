@@ -9,6 +9,7 @@ import user5 from "../../assets/images/users/user5.jpg";
 
 const tableData = [
     {
+        id: 1,
         avatar: user1,
         name: "Hanna Gover",
         project: "Flexy React",
@@ -17,6 +18,7 @@ const tableData = [
         endDate: "2022-06-30",
     },
     {
+        id: 2,
         avatar: user2,
         name: "Hanna Gover",
         project: "Lading pro React",
@@ -25,6 +27,7 @@ const tableData = [
         endDate: "2022-06-30",
     },
     {
+        id: 3,
         avatar: user3,
         name: "Hanna Gover",
         project: "Elite React",
@@ -33,6 +36,7 @@ const tableData = [
         endDate: "2022-06-30",
     },
     {
+        id: 4,
         avatar: user4,
         name: "Hanna Gover",
         project: "Flexy React",
@@ -41,6 +45,7 @@ const tableData = [
         endDate: "2022-06-30",
     },
     {
+        id: 5,
         avatar: user5,
         name: "Hanna Gover",
         project: "Ample React",
@@ -60,7 +65,7 @@ const Lectures = () => {
                             <CardTitle tag="h3">{ "강의 리스트" }</CardTitle>
                         </Col>
                         <Col className="d-flex flex-row-reverse align-items-center">
-                            <Link to="/register">
+                            <Link to="/lecture">
                                 <Button variant="secondary">
                                     강의 등록
                                 </Button>
@@ -103,7 +108,7 @@ const Lectures = () => {
                             </td>
                             <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
                             <td>
-                                <Link to="/modify">
+                                <Link to={`/lecture/${ tdata.id }`}>
                                     <Button variant="outline-primary">
                                         상세 보기
                                     </Button>

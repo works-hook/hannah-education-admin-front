@@ -1,4 +1,4 @@
-import { Card, CardBody, CardTitle, Fade, Table } from "reactstrap";
+import { Card, CardBody, CardTitle, Table } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import user1 from "../../assets/images/users/user1.jpg";
@@ -6,7 +6,6 @@ import user2 from "../../assets/images/users/user2.jpg";
 import user3 from "../../assets/images/users/user3.jpg";
 import user4 from "../../assets/images/users/user4.jpg";
 import user5 from "../../assets/images/users/user5.jpg";
-import {useState} from "react";
 
 const tableData = [
     {
@@ -55,7 +54,7 @@ const Lectures = () => {
     return (<div>
         <Card>
             <CardBody>
-                <CardTitle tag="h3">{ "강의별 수강생 관리" }</CardTitle>
+                <CardTitle className="p-2 w-100" tag="h3">{ "강의별 수강생 관리" }</CardTitle>
                 <Table className="no-wrap mt-3 align-middle" responsive borderless>
                     <thead>
                     <tr>

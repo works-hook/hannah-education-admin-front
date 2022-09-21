@@ -7,8 +7,7 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 /***** Pages ****/
 
 const Lectures = lazy(() => import("../views/lectures/Lectures.js"))
-const LectureRegister = lazy(() => import("../views/lectures/LectureRegister.js"))
-const LectureModify = lazy(() => import("../views/lectures/LectureModify.js"))
+const Lecture = lazy(() => import("../views/lectures/Lecture.js"))
 
 const Students = lazy(() => import("../views/student/Students.js"))
 
@@ -31,9 +30,10 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/lectures" /> },
+
       { path: "/lectures", exact: true, element: <Lectures /> },
-      { path: "/register", exact: true, element: <LectureRegister /> },
-      { path: "/modify", expect: true, element: <LectureModify /> },
+      { path: "/lecture/:lectureId", exact: true, element: <Lecture isRegistered={false} /> },
+      { path: "/lecture", exact: true, element: <Lecture isRegistered={true} /> },
 
       { path: "/students", exact: true, element: <Students />},
 
