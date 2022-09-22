@@ -9,15 +9,13 @@ import {
     CardHeader, CardText,
     CardTitle,
     Col,
-    Container,
-    FormGroup,
-    Input,
-    Label,
+    Container, Progress,
     Row,
-    Table, Toast, ToastBody, ToastHeader
 } from "reactstrap";
-import { Button } from "react-bootstrap";
 import React, { useState } from "react";
+
+import AssignmentModal from "./AssignmentModal";
+import "../../assets/customStyle.css";
 
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
@@ -25,37 +23,75 @@ import { Viewer } from '@toast-ui/react-editor';
 const tableData = [
     {
         title: "java 자료형",
-        classDate: "2022-01-03 13:00"
+        classDate: "2022-01-03 13:00",
+        classState: "DONE",
+        assignmentId: "1",
+        assignmentTitle: "java 자료형 과제1",
+        assignmentContent: " ```java\n" +
+            "private String name;\n" +
+            "```\n" +
+            "- 어쨋든 강의 내용임\n" +
+            "- 여러개 있음\n" +
+            "> 자바 좋아\n" +
+            "> 자바 스크립트 좋아",
+        questionsCount: "12",
     },
     {
         title: "java 클래스",
-        classDate: "2022-01-03 13:00"
+        classDate: "2022-01-04 13:00",
+        classState: "DONE",
+        assignmentId: "2",
+        assignmentTitle: "java 클래스 과제2",
+        questionsCount: "7",
+        assignmentContent: " ```java\n" +
+            "private String name;\n" +
+            "```\n" +
+             "- 어쨋든 강의 내용임\n" +
+             "- 여러개 있음\n" +
+             "> 자바 좋아\n" +
+             "> 자바 스크립트 좋아",
     },
     {
         title: "java 추상화",
-        classDate: "2022-01-03 13:00"
+        classDate: "2022-01-05 13:00",
+        classState: "DONE",
+        assignmentId: null,
+        assignmentTitle: null,
+        questionsCount: "4",
     },
     {
         title: "java 인터페이스",
-        classDate: "2022-01-03 13:00"
+        classDate: "2022-01-06 13:00",
+        classState: "READY",
+        assignmentId: "4",
+        assignmentTitle: "java 인터페이스 과제4",
+        questionsCount: "0",
+        assignmentContent: " ```java\n" +
+            "private String name;\n" +
+            "```\n" +
+            "- 어쨋든 강의 내용임\n" +
+            "- 여러개 있음\n" +
+            "> 자바 좋아\n" +
+            "> 자바 스크립트 좋아",
     },
 ];
 
 const Student = () => {
-    const [open, setOpen] = useState('');
+    const [open, setOpen] = useState('0');
     const classToggle = (id) => {
         if (open === id) {
-            setOpen();
+            setOpen('0');
         } else {
             setOpen(id);
         }
     };
 
+    const [assignmentModal, setAssignmentModal] = useState(false);
+    const [clickAssignmentId, setClickAssignmentId] = useState('0');
 
-    const [modal, setModal] = useState(false);
-
-    const toggle = () => {
-        setModal(!modal)
+    const assignmentToggle = (assignmentId) => {
+        setAssignmentModal(!assignmentModal)
+        setClickAssignmentId(assignmentId)
     };
 
     return (
@@ -69,7 +105,7 @@ const Student = () => {
                                 강의 정보
                             </div>
                             <div>
-                                <span className={`p-2 bg-success rounded-circle d-inline-block`}></span>
+                                <span className={`p-2 bg-warning rounded-circle d-inline-block`}></span>
                             </div>
                         </CardTitle>
                         <CardBody>
@@ -105,7 +141,15 @@ const Student = () => {
                                         </CardHeader>
                                         <CardBody>
                                             <CardText>
-                                                100%
+                                                <Progress
+                                                    animated
+                                                    style={{
+                                                        height: '23.5px'
+                                                    }}
+                                                    color="warning"
+                                                    max="4"
+                                                    value="3"
+                                                >3 of 4</Progress>
                                             </CardText>
                                         </CardBody>
                                     </Card>
@@ -154,75 +198,94 @@ const Student = () => {
                             </Row>
                         </Container>
                         <CardBody>
-                            <div>
-                                <Accordion flush open={open} toggle={classToggle}>
-                                    <AccordionItem>
-                                        <AccordionHeader targetId="1">Accordion Item 1</AccordionHeader>
-                                        <AccordionBody accordionId="1">
-                                            <Table className="no-wrap mt-3 align-middle" responsive borderless>
-                                                <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>제목</th>
-                                                    <th>Period</th>
-                                                    <th>수강 완료 인원 / 수강 전체 인원</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {tableData.map((tdata, index) => (
-                                                    <tr key={ index } className="border-top">
-                                                        <td>{ index + 1 }</td>
-                                                        <td>{ tdata.title }</td>
-                                                        <td>{ tdata.classDate }</td>
-                                                        <td className="px-lg-5"><span className="px-lg-5">30 / 112</span></td>
-                                                    </tr>
-                                                ))}
-                                                </tbody>
-                                            </Table>
-                                        </AccordionBody>
-                                    </AccordionItem>
-                                    <AccordionItem>
-                                        <AccordionHeader targetId="2">Accordion Item 2</AccordionHeader>
-                                        <AccordionBody accordionId="2">
-                                            <strong>This is the second item&#39;s accordion body.</strong>
-                                            You can modify any of this with custom CSS or overriding our default
-                                            variables. It&#39;s also worth noting that just about any HTML can
-                                            go within the <code>.accordion-body</code>, though the transition
-                                            does limit overflow.
-                                        </AccordionBody>
-                                    </AccordionItem>
-                                    <AccordionItem>
-                                        <AccordionHeader targetId="3">Accordion Item 3</AccordionHeader>
-                                        <AccordionBody accordionId="3">
-                                            <strong>This is the third item&#39;s accordion body.</strong>
-                                            You can modify any of this with custom CSS or overriding our default
-                                            variables. It&#39;s also worth noting that just about any HTML can
-                                            go within the <code>.accordion-body</code>, though the transition
-                                            does limit overflow.
-                                        </AccordionBody>
-                                    </AccordionItem>
-                                </Accordion>
-                            </div>
-                            <Table className="no-wrap mt-3 align-middle" responsive borderless>
-                                <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>제목</th>
-                                    <th>Period</th>
-                                    <th>수강 완료 인원 / 수강 전체 인원</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                            <Accordion flush open={open} toggle={classToggle}>
                                 {tableData.map((tdata, index) => (
-                                    <tr key={ index } className="border-top">
-                                        <td>{ index + 1 }</td>
-                                        <td>{ tdata.title }</td>
-                                        <td>{ tdata.classDate }</td>
-                                        <td className="px-lg-5"><span className="px-lg-5">30 / 112</span></td>
-                                    </tr>
+                                    <AccordionItem>
+                                        <AccordionHeader targetId={ index + 1 }>
+                                            <Col>{ index + 1 }. { tdata.title }</Col>
+                                            <Col className="d-flex justify-content-sm-end px-lg-5">{ tdata.classDate }</Col>
+                                        </AccordionHeader>
+                                        <AccordionBody accordionId={ index + 1 }>
+                                            <Row>
+                                                <Col>
+                                                    <Card className="my-2" color="secondary" outline >
+                                                        <CardHeader>
+                                                            수업 상태
+                                                        </CardHeader>
+                                                        <CardBody>
+                                                            <CardText className={`d-flex align-items-md-center`}>
+                                                                { tdata.classState === 'DONE'
+                                                                    ? <span className={`p-2 bg-success rounded-circle d-inline-block`}></span>
+                                                                    : <span className={`p-2 bg-danger rounded-circle d-inline-block`}></span> }
+                                                                <span className={`mx-2`}>{ tdata.classState }</span>
+                                                            </CardText>
+                                                        </CardBody>
+                                                    </Card>
+                                                </Col>
+                                                <Col>
+                                                    { tdata.assignmentTitle
+                                                        ? <Card
+                                                            className="my-2 pointer"
+                                                            color="secondary"
+                                                            outline
+                                                            onClick={() => {
+                                                                assignmentToggle(tdata.assignmentId)
+                                                            }}>
+                                                            <CardHeader>
+                                                                과제
+                                                            </CardHeader>
+                                                            <CardBody>
+                                                                <CardText>
+                                                                    {tdata.assignmentTitle
+                                                                        ? tdata.assignmentTitle
+                                                                        : '과제 없음'}
+                                                                </CardText>
+                                                            </CardBody>
+                                                        </Card>
+                                                        : <Card
+                                                            className="my-2"
+                                                            color="secondary"
+                                                            outline
+                                                            >
+                                                            <CardHeader>
+                                                                과제
+                                                            </CardHeader>
+                                                            <CardBody>
+                                                                <CardText>과제 없음</CardText>
+                                                            </CardBody>
+                                                        </Card>
+                                                    }
+                                                </Col>
+                                                <Col>
+                                                    <Card className="my-2" color="secondary" outline >
+                                                        <CardHeader>
+                                                            질문
+                                                        </CardHeader>
+                                                        <CardBody>
+                                                            <CardText>
+                                                                { tdata.questionsCount }개
+                                                            </CardText>
+                                                        </CardBody>
+                                                    </Card>
+                                                </Col>
+                                            </Row>
+                                            <Alert color="white">
+                                                { tdata.assignmentTitle
+                                                    ? <>
+                                                        <h4 className="alert-heading">
+                                                            { tdata.assignmentTitle }
+                                                        </h4>
+                                                        <hr />
+                                                        <Viewer initialValue={ tdata.assignmentContent } />
+                                                      </>
+                                                    : <div>과제 없음</div>
+                                                }
+                                            </Alert>
+                                        </AccordionBody>
+                                    </AccordionItem>
                                 ))}
-                                </tbody>
-                            </Table>
+                            </Accordion>
+                            <AssignmentModal assignmentId={ clickAssignmentId } toggle={ assignmentToggle } modal={ assignmentModal }/>
                         </CardBody>
                     </Card>
                 </Col>

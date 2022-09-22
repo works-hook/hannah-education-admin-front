@@ -3,7 +3,7 @@ import Writer from "../utils/Writer";
 import { Button } from "react-bootstrap";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import ClassModal from "./components/ClassModal";
+import ClassModal from "./ClassModal";
 
 const modify = () => {
     window.location.href="/lectures"

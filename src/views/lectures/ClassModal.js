@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import { Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Collapse } from "reactstrap";
-import Writer from '../../utils/Writer';
+import Writer from '../utils/Writer';
 
 
 const ClassModal = (props) => {

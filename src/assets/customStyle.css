@@ -1,0 +1,15 @@
+/*.accordion-header > .accordion-button {*/
+/*    background: white !important;*/
+/*}*/
+
+.accordion {
+    --bs-accordion-bg: none !important;
+}
+
+.accordion-body {
+    background: white;
+}
+
+.pointer {
+    cursor: pointer;
+}
