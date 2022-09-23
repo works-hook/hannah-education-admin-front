@@ -14,8 +14,6 @@ import {
 
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
-import Writer from "../utils/Writer";
-import * as PropTypes from "prop-types";
 
 const students = [
     {
@@ -60,11 +58,6 @@ const students = [
     },
 ];
 
-function Low(props) {
-    return null;
-}
-
-Low.propTypes = {children: PropTypes.node};
 const AssignmentModal = (props) => {
     const [open, setOpen] = useState('0');
     const [commentState, setCommentState] = useState(false);
@@ -133,7 +126,7 @@ const AssignmentModal = (props) => {
                                                     </FormGroup>
                                                 </Col>
                                                 <Col>
-                                                    <Button className="" color="primary" onClick={ props.toggle }>
+                                                    <Button className="" color="primary">
                                                         저장하기
                                                     </Button>{''}
                                                 </Col>
@@ -147,16 +140,8 @@ const AssignmentModal = (props) => {
                 </Accordion>
             </ModalBody>
             <ModalFooter>
-                <Button color="primary" onClick={ props.toggle }>
-                    { props.isModify ? "수정" : "등록" }하기
-                </Button>{''}
-                { props.isModify && (
-                    <Button color="danger" onClick={ props.toggle }>
-                        삭제하기
-                    </Button>
-                )}
                 <Button color="outline-secondary" onClick={ props.toggle }>
-                    취소
+                    닫기
                 </Button>
             </ModalFooter>
         </Modal>

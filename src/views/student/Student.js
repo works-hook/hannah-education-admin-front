@@ -15,6 +15,7 @@ import {
 import React, { useState } from "react";
 
 import AssignmentModal from "./AssignmentModal";
+import QuestionModal from "./QuestionModal";
 import "../../assets/customStyle.css";
 
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
@@ -22,6 +23,7 @@ import { Viewer } from '@toast-ui/react-editor';
 
 const tableData = [
     {
+        classId: 1,
         title: "java 자료형",
         classDate: "2022-01-03 13:00",
         classState: "DONE",
@@ -37,6 +39,7 @@ const tableData = [
         questionsCount: "12",
     },
     {
+        classId: 2,
         title: "java 클래스",
         classDate: "2022-01-04 13:00",
         classState: "DONE",
@@ -52,6 +55,7 @@ const tableData = [
              "> 자바 스크립트 좋아",
     },
     {
+        classId: 3,
         title: "java 추상화",
         classDate: "2022-01-05 13:00",
         classState: "DONE",
@@ -60,6 +64,7 @@ const tableData = [
         questionsCount: "4",
     },
     {
+        classId: 4,
         title: "java 인터페이스",
         classDate: "2022-01-06 13:00",
         classState: "READY",
@@ -78,21 +83,22 @@ const tableData = [
 
 const Student = () => {
     const [open, setOpen] = useState('0');
-    const classToggle = (id) => {
-        if (open === id) {
-            setOpen('0');
-        } else {
-            setOpen(id);
-        }
-    };
+    const classToggle = (id) => setOpen(open === id ? '0' : id);
 
     const [assignmentModal, setAssignmentModal] = useState(false);
+    const [questionModal, setQuestionModal] = useState(false);
     const [clickAssignmentId, setClickAssignmentId] = useState('0');
+    const [clickClassId, setClassId] = useState('0');
 
     const assignmentToggle = (assignmentId) => {
-        setAssignmentModal(!assignmentModal)
-        setClickAssignmentId(assignmentId)
+        setAssignmentModal(!assignmentModal);
+        setClickAssignmentId(assignmentId);
     };
+
+    const questionToggle = (classId) => {
+        setQuestionModal(!questionModal);
+        setClassId(classId);
+    }
 
     return (
         <>
@@ -231,25 +237,13 @@ const Student = () => {
                                                             onClick={() => {
                                                                 assignmentToggle(tdata.assignmentId)
                                                             }}>
-                                                            <CardHeader>
-                                                                과제
-                                                            </CardHeader>
+                                                            <CardHeader>과제</CardHeader>
                                                             <CardBody>
-                                                                <CardText>
-                                                                    {tdata.assignmentTitle
-                                                                        ? tdata.assignmentTitle
-                                                                        : '과제 없음'}
-                                                                </CardText>
+                                                                <CardText>{ tdata.assignmentTitle }</CardText>
                                                             </CardBody>
                                                         </Card>
-                                                        : <Card
-                                                            className="my-2"
-                                                            color="secondary"
-                                                            outline
-                                                            >
-                                                            <CardHeader>
-                                                                과제
-                                                            </CardHeader>
+                                                        : <Card className="my-2" color="secondary" outline>
+                                                            <CardHeader>과제</CardHeader>
                                                             <CardBody>
                                                                 <CardText>과제 없음</CardText>
                                                             </CardBody>
@@ -257,16 +251,29 @@ const Student = () => {
                                                     }
                                                 </Col>
                                                 <Col>
-                                                    <Card className="my-2" color="secondary" outline >
-                                                        <CardHeader>
-                                                            질문
-                                                        </CardHeader>
-                                                        <CardBody>
-                                                            <CardText>
-                                                                { tdata.questionsCount }개
-                                                            </CardText>
-                                                        </CardBody>
-                                                    </Card>
+                                                    { tdata.questionsCount > 0
+                                                        ? <Card
+                                                            className="my-2 pointer"
+                                                            color="secondary"
+                                                            outline
+                                                            onClick={ () => { questionToggle(tdata.classId) }}
+                                                        >
+                                                            <CardHeader>질문</CardHeader>
+                                                            <CardBody>
+                                                                <CardText>
+                                                                    { tdata.questionsCount }개
+                                                                </CardText>
+                                                            </CardBody>
+                                                        </Card>
+                                                        : <Card className="my-2" color="secondary" outline>
+                                                            <CardHeader>질문</CardHeader>
+                                                            <CardBody>
+                                                                <CardText>
+                                                                    { tdata.questionsCount }개
+                                                                </CardText>
+                                                            </CardBody>
+                                                        </Card>
+                                                    }
                                                 </Col>
                                             </Row>
                                             <Alert color="white">
@@ -286,6 +293,7 @@ const Student = () => {
                                 ))}
                             </Accordion>
                             <AssignmentModal assignmentId={ clickAssignmentId } toggle={ assignmentToggle } modal={ assignmentModal }/>
+                            <QuestionModal classId={ clickClassId } toggle={ questionToggle } modal={ questionModal }/>
                         </CardBody>
                     </Card>
                 </Col>
