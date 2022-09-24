@@ -12,6 +12,11 @@ import {
     Accordion, Alert, Form, Label, FormGroup, Input, Collapse,
 } from "reactstrap";
 
+import user1 from "../../assets/images/users/user1.jpg";
+import user2 from "../../assets/images/users/user2.jpg";
+import user3 from "../../assets/images/users/user3.jpg";
+import user4 from "../../assets/images/users/user4.jpg";
+
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Viewer } from '@toast-ui/react-editor';
 
@@ -19,6 +24,7 @@ const students = [
     {
         studentId: "1",
         name: "student1",
+        studentImage: user1,
         assignmentState: "DONE",
         assignmentContent: "```java\n" +
             "private String name;\n" +
@@ -32,6 +38,7 @@ const students = [
     {
         studentId: "2",
         name: "student2",
+        studentImage: user2,
         assignmentState: "READY",
         assignmentContent: null,
         assignmentDate: "2022-01-06 13:00",
@@ -39,6 +46,7 @@ const students = [
     {
         studentId: "3",
         name: "student3",
+        studentImage: user3,
         assignmentState: "READY",
         assignmentContent: null,
         assignmentDate: "2022-01-06 13:00",
@@ -46,6 +54,7 @@ const students = [
     {
         studentId: "4",
         name: "student4",
+        studentImage: user4,
         assignmentState: "DONE",
         assignmentContent: "```java\n" +
             "private String name;\n" +
@@ -73,7 +82,17 @@ const AssignmentModal = (props) => {
                     {students.map((tdata, index) => (
                         <AccordionItem>
                             <AccordionHeader targetId={ index + 1 }>
-                                <Col md={4}>{ index + 1 }. { tdata.name }</Col>
+                                <Col md={4}>
+                                    { index + 1 }.
+                                    <img
+                                        src={ tdata.studentImage }
+                                        className="rounded-circle mx-3"
+                                        alt="avatar"
+                                        width="45"
+                                        height="45"
+                                    />
+                                    { tdata.name }
+                                </Col>
                                 { tdata.assignmentState === 'DONE'
                                     ? <>
                                         <Col className="d-flex px-lg-5">{ tdata.assignmentDate }</Col>
@@ -119,17 +138,19 @@ const AssignmentModal = (props) => {
                                             </div>
 
                                             <Collapse isOpen={ commentState }>
-                                                <Col>
-                                                    <FormGroup>
-                                                        <Label for="assignmentContent">Comment</Label>
-                                                        <Input id="comment" name="comment" type="text" />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col>
-                                                    <Button className="" color="primary">
-                                                        저장하기
-                                                    </Button>{''}
-                                                </Col>
+                                                <Label for="assignmentContent">Comment</Label>
+                                                <div className="d-flex">
+                                                    <Col md={10}>
+                                                        <FormGroup>
+                                                            <Input id="comment" name="comment" type="text" />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col md={2} className="mx-xl-3">
+                                                        <Button className="" color="primary">
+                                                            저장하기
+                                                        </Button>{''}
+                                                    </Col>
+                                                </div>
                                             </Collapse>
                                         </Form>
                                     </>

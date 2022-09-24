@@ -9,8 +9,7 @@ import {
     AccordionHeader,
     Col,
     AccordionBody,
-    Alert,
-    Accordion
+    Accordion, Card, ListGroup, ListGroupItem, FormGroup, Input, Collapse, Badge
 } from "reactstrap";
 
 import user1 from "../../assets/images/users/user1.jpg";
@@ -20,7 +19,6 @@ import user4 from "../../assets/images/users/user4.jpg";
 import user5 from "../../assets/images/users/user5.jpg";
 
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import {Viewer} from "@toast-ui/react-editor";
 
 const questions = [
     {
@@ -77,10 +75,8 @@ const questions = [
 
 const QuestionModal = (props) => {
     const [open, setOpen] = useState('0');
-    const [commentState, setCommentState] = useState(false);
 
     const questionToggle = (id) => { setOpen(open === id ? '0' : id) };
-    const commentToggle = () => { setCommentState(!commentState) }
 
     return (
         <Modal size="xl" isOpen={ props.modal } toggle={ props.toggle }>
@@ -91,19 +87,50 @@ const QuestionModal = (props) => {
                         <AccordionItem>
                             <AccordionHeader targetId={ index + 1 }>
                                 <Col>{ index + 1 }. { tdata.questionTitle }</Col>
+                                <Col>
+                                    <img
+                                        src={ tdata.studentImage }
+                                        className="rounded-circle mx-3"
+                                        alt="avatar"
+                                        width="45"
+                                        height="45"
+                                    />
+                                    { tdata.studentName }
+                                </Col>
                                 <Col className="d-flex justify-content-sm-end mx-4">
                                     { tdata.answerState === 'Y'
-                                        ? <Button color="outline-success">답변 완료</Button>
-                                        : <Button color="outline-secondary">답변 대기</Button>
+                                        ? <Button color="outline-menuSuccess">답변 완료</Button>
+                                        : <Button color="outline-warning">답변 대기</Button>
                                     }
                                 </Col>
                             </AccordionHeader>
                             <AccordionBody accordionId={ index + 1 }>
-                                <Alert color="wirth">
-                                    { tdata.questionContent }
-                                    <hr />
-                                    { tdata.answer }
-                                </Alert>
+                                <Card>
+                                    <ListGroup>
+                                        <ListGroupItem>
+                                            <Badge color="customPrimary" className="my-1">질문</Badge> <br />
+                                            { tdata.questionContent }
+                                        </ListGroupItem>
+                                        <ListGroupItem>
+                                            <Badge color="customPrimary" className="my-1">답변</Badge> <br />
+                                            { tdata.answer }
+                                            <Collapse isOpen={ tdata.answerState === 'N' }>
+                                                <div className="d-flex my-2">
+                                                    <Col md={10}>
+                                                        <FormGroup>
+                                                            <Input id="comment" name="comment" type="text" />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col md={2} className="mx-xl-3">
+                                                        <Button className="" color="primary">
+                                                            답변하기
+                                                        </Button>{''}
+                                                    </Col>
+                                                </div>
+                                            </Collapse>
+                                        </ListGroupItem>
+                                    </ListGroup>
+                                </Card>
                             </AccordionBody>
                         </AccordionItem>
                     ))}

@@ -1,7 +1,3 @@
-/*.accordion-header > .accordion-button {*/
-/*    background: white !important;*/
-/*}*/
-
 .accordion {
     --bs-accordion-bg: none !important;
 }
@@ -12,4 +8,14 @@
 
 .pointer {
     cursor: pointer;
+}
+
+.btn-outline-menuSuccess {
+    --bs-btn-hover-color: rgba(57, 157, 68, 0.87);
+    --bs-btn-hover-bg: none;
+}
+
+.btn-outline-warning {
+    --bs-btn-hover-color: #ffbc34;
+    --bs-btn-hover-bg: none;
 }

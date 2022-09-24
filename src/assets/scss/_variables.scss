@@ -2,6 +2,7 @@
 // Theme Colors
 /********************/
 $primary: #2962ff;
+$customPrimary: #3f48cc;
 $info: #26c6da;
 $danger: #f62d51;
 $success: #39c449;
@@ -13,6 +14,7 @@ $secondary: #35363b;
 
 $theme-colors: (
   "primary": $primary,
+  "customPrimary": $customPrimary,
   "secondary": $secondary,
   "success": $success,
   "menuSuccess": $menuSuccess,
