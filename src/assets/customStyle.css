@@ -19,3 +19,7 @@
     --bs-btn-hover-color: #ffbc34;
     --bs-btn-hover-bg: none;
 }
+
+a {
+    text-decoration: none;
+}

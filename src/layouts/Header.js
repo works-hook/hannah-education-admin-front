@@ -13,6 +13,8 @@ import {
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/adminprowhite.svg";
 import user1 from "../assets/images/users/user4.jpg";
+import { Link } from "react-router-dom";
+import "../assets/customStyle.css";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -74,7 +76,7 @@ const Header = () => {
             <DropdownItem header>Info</DropdownItem>
             <DropdownItem>Edit Profile</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>Logout</DropdownItem>
+            <Link to={"/login"}><DropdownItem>Logout</DropdownItem></Link>
           </DropdownMenu>
         </Dropdown>
       </Collapse>

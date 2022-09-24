@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 
 /***** Pages ****/
+const Login = lazy(() => import("../views/user/Login"))
 
 const Lectures = lazy(() => import("../views/lectures/Lectures.js"))
 const Lecture = lazy(() => import("../views/lectures/Lecture.js"))
@@ -32,6 +33,10 @@ const ThemeRoutes = [
 
       { path: "/cards", exact: true, element: <Cards /> },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ];
 
