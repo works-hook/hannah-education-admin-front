@@ -31,6 +31,10 @@ a {
     align-items: center;
 }
 
-.container {
+.custom-container {
     --bs-gutter-x: 50rem;
+}
+
+.custom-card {
+    --bs-card-spacer-x: 5rem;
 }

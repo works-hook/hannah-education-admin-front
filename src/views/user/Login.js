@@ -1,20 +1,16 @@
 import {
-    Button,
+    Button, ButtonGroup,
     Card,
     CardText,
     CardTitle,
-    Container,
-    Form,
-    FormGroup,
-    Input,
-    Label,
+    Container, Form, FormGroup, Input, Label,
 } from "reactstrap";
-import "../../assets/customStyle.css";
+import "../../assets/customStyle.css"
 
 const Login = () => {
     return (<>
-        <Container className="login-flex">
-            <Card body>
+        <Container className="login-flex custom-container">
+            <Card body className="custom-card">
                 <CardTitle tag="h2" className="text-center">
                     Login
                 </CardTitle>
@@ -23,10 +19,11 @@ const Login = () => {
                         <FormGroup>
                             <Label for="id">Id</Label>
                             <Input
+                                className="mb-4"
                                 id="id"
                                 name="id"
-                                placeholder="Input your Id."
                                 type="text"
+                                placeholder="Input your Id"
                             />
                         </FormGroup>
                         <FormGroup>
@@ -34,15 +31,25 @@ const Login = () => {
                             <Input
                                 id="password"
                                 name="password"
-                                placeholder="Input your Password."
                                 type="password"
+                                placeholder="Input your Password"
                             />
                         </FormGroup>
                     </Form>
                 </CardText>
-                <Button color="primary">
+                <Button color="primary" className="mb-3">
                     Submit
                 </Button>
+                <div className="d-flex justify-content-end">
+                    <ButtonGroup>
+                        <Button color="link" size="sm">
+                            Sign Up
+                        </Button>
+                        <Button color="link" size="sm">
+                            Forget your Password?
+                        </Button>
+                    </ButtonGroup>
+                </div>
             </Card>
         </Container>
     </>);
