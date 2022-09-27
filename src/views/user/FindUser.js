@@ -38,7 +38,7 @@ const FindUser = () => {
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="email">메일</Label>
+                            <Label for="email">이메일</Label>
                             <Input
                                 id="email"
                                 name="email"
