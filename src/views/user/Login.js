@@ -38,9 +38,11 @@ const Login = () => {
                         </FormGroup>
                     </Form>
                 </CardText>
-                <Button color="primary" className="mb-3">
-                    Submit
-                </Button>
+                <Link to="/lectures">
+                    <Button color="primary" className="mb-3" style={{"width": "100%"}}>
+                        Submit
+                    </Button>
+                </Link>
                 <div className="d-flex justify-content-end">
                     <ButtonGroup>
                         <Link to="/signUp">
