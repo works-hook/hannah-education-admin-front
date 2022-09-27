@@ -5,6 +5,7 @@ import {
     CardTitle,
     Container, Form, FormGroup, Input, Label,
 } from "reactstrap";
+import { Link } from "react-router-dom";
 import "../../assets/customStyle.css"
 
 const Login = () => {
@@ -42,12 +43,16 @@ const Login = () => {
                 </Button>
                 <div className="d-flex justify-content-end">
                     <ButtonGroup>
-                        <Button color="link" size="sm">
-                            Sign Up
-                        </Button>
-                        <Button color="link" size="sm">
-                            Forget your Password?
-                        </Button>
+                        <Link to="/signUp">
+                            <Button color="link" size="sm">
+                                Sign Up
+                            </Button>
+                        </Link>
+                        <Link to="/findUser">
+                            <Button color="link" size="sm">
+                                Forget your Id/Password?
+                            </Button>
+                        </Link>
                     </ButtonGroup>
                 </div>
             </Card>

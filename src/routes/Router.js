@@ -2,18 +2,18 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 /****Layouts*****/
-const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
+const FullLayout = lazy(() => import("../layouts/FullLayout"));
 
 /***** Pages ****/
 const Login = lazy(() => import("../views/user/Login"))
+const FindUser = lazy(() => import("../views/user/FindUser"))
+const SignUp = lazy(() => import("../views/user/SignUp"))
 
-const Lectures = lazy(() => import("../views/lectures/Lectures.js"))
-const Lecture = lazy(() => import("../views/lectures/Lecture.js"))
+const Lectures = lazy(() => import("../views/lectures/Lectures"))
+const Lecture = lazy(() => import("../views/lectures/Lecture"))
 
-const Students = lazy(() => import("../views/student/Students.js"))
+const Students = lazy(() => import("../views/student/Students"))
 const Student = lazy(() => import("../views/student/Student"))
-
-const Cards = lazy(() => import("../views/ui/Cards"));
 
 /*****Routes******/
 
@@ -22,7 +22,7 @@ const ThemeRoutes = [
     path: "/",
     element: <FullLayout />,
     children: [
-      { path: "/", element: <Navigate to="/lectures" /> },
+      { path: "/", element: <Navigate to="/login" /> },
 
       { path: "/lectures", exact: true, element: <Lectures /> },
       { path: "/lecture/:lectureId", exact: true, element: <Lecture isRegistered={false} /> },
@@ -30,13 +30,19 @@ const ThemeRoutes = [
 
       { path: "/students", exact: true, element: <Students /> },
       { path: "/student/:lectureId", exact: true, element: <Student /> },
-
-      { path: "/cards", exact: true, element: <Cards /> },
     ],
   },
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/signUp",
+    element: <SignUp />,
+  },
+  {
+    path: "/findUser",
+    element: <FindUser />,
   },
 ];
 
