@@ -39,7 +39,7 @@ const Login = () => {
                     </Form>
                 </CardText>
                 <Link to="/lectures">
-                    <Button color="primary" className="mb-3" style={{"width": "100%"}}>
+                    <Button color="primary" className="mb-3 w-100p">
                         Submit
                     </Button>
                 </Link>

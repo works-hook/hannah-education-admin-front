@@ -149,9 +149,7 @@ const Student = () => {
                                             <CardText>
                                                 <Progress
                                                     animated
-                                                    style={{
-                                                        height: '23.5px'
-                                                    }}
+                                                    className="custom-progress-style"
                                                     color="warning"
                                                     max="4"
                                                     value="3"
