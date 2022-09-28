@@ -15,6 +15,8 @@ const Lecture = lazy(() => import("../views/lectures/Lecture"))
 const Students = lazy(() => import("../views/student/Students"))
 const Student = lazy(() => import("../views/student/Student"))
 
+const Teacher = lazy(() => import("../views/teacher/Teacher"))
+
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -30,6 +32,9 @@ const ThemeRoutes = [
 
       { path: "/students", exact: true, element: <Students /> },
       { path: "/student/:lectureId", exact: true, element: <Student /> },
+
+      { path: "/teacher", exact: true, element: <Teacher /> },
+      { path: "/teacher/modify", exact: true, element: <Teacher isModify={true}/> },
     ],
   },
   {

@@ -38,3 +38,31 @@ a {
 .custom-card {
     --bs-card-spacer-x: 5rem;
 }
+
+.custom-progress-style {
+    height: 23.5px;
+}
+
+.w-100p {
+    width: 100%;
+}
+
+.profile-box {
+    display: flex;
+    justify-content: start;
+    margin: 2rem 2rem 2rem 1rem;
+}
+
+.profile-box .col {
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    margin-right: 1rem;
+}
+
+.profile-box > .introduce {
+    width: 660px;
+}
+
+.introduce > div {
+    height: 430px !important;
+}

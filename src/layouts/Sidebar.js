@@ -13,9 +13,9 @@ const navigation = [
     icon: "bi bi-people"
   },
   {
-    title: "Cards",
-    href: "/cards",
-    icon: "bi bi-card-text",
+    title: "내 정보 관리",
+    href: "/teacher",
+    icon: "bi bi-columns",
   },
 ];
 
