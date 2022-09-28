@@ -5,16 +5,19 @@ const navigation = [
   {
     title: "강의 관리",
     href: "/lectures",
+    activeHref: "lecture",
     icon: "bi bi-card-text"
   },
   {
     title: "수강생 관리",
     href: "/students",
+    activeHref: "student",
     icon: "bi bi-people"
   },
   {
     title: "내 정보 관리",
     href: "/teacher",
+    activeHref: "teacher",
     icon: "bi bi-columns",
   },
 ];
@@ -43,7 +46,7 @@ const Sidebar = () => {
               <Link
                 to={navi.href}
                 className={
-                  location.pathname === navi.href
+                  location.pathname.includes(navi.activeHref)
                     ? "active nav-link py-3"
                     : "nav-link py-3"
                 }
