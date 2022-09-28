@@ -1,7 +1,7 @@
 import {
     Button,
     Card, CardBody,
-    CardTitle, Col, Form, FormGroup, Input, InputGroup, InputGroupText, Label, Row,
+    CardTitle, Col, Form, FormGroup, Input, InputGroup, Label, Row,
 } from "reactstrap";
 import user from "../../assets/images/users/user4.jpg";
 import "../../assets/customStyle.css";

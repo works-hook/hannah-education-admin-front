@@ -3,7 +3,7 @@ import {
     Card,
     CardText,
     CardTitle,
-    Container, Form, FormGroup, Input, Label, UncontrolledTooltip,
+    Container, Form, FormGroup, Input, InputGroup, Label, UncontrolledTooltip,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { ReactComponent as QuestionMark } from "../../assets/images/svg/questionMark.svg";
@@ -34,13 +34,15 @@ const SignUp = () => {
                     <Form>
                         <FormGroup>
                             <Label for="id">Id</Label>
-                            <Input
-                                className="mb-4"
-                                id="id"
-                                name="id"
-                                type="text"
-                                placeholder="Input your Id"
-                            />
+                            <InputGroup>
+                                <Input
+                                    id="id"
+                                    name="id"
+                                    type="text"
+                                    placeholder="Input your Id"
+                                />
+                                <Button color="outline-secondary" size="sm">duplicate check</Button>
+                            </InputGroup>
                         </FormGroup>
                         <FormGroup>
                             <Label for="password">Password</Label>

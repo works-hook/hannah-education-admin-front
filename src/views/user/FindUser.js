@@ -3,7 +3,7 @@ import {
     Card,
     CardText,
     CardTitle,
-    Container, Form, FormGroup, Input, Label
+    Container, Form, FormGroup, Input, InputGroup, Label
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -71,13 +71,15 @@ const FindUser = () => {
                         </FormGroup>
                         <FormGroup>
                             <Label for="email">이메일</Label>
-                            <Input
-                                className="mb-4"
-                                id="email"
-                                name="email"
-                                type="email"
-                                placeholder="이메일을 입력해주세요."
-                            />
+                            <InputGroup>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    placeholder="이메일을 입력해주세요."
+                                />
+                                <Button onClick={ timerStart } size="sm">인증번호 받기</Button>
+                            </InputGroup>
                         </FormGroup>
                         { timer && <div>
                             <FormGroup>
@@ -96,8 +98,8 @@ const FindUser = () => {
                         </div>}
                     </Form>
                 </CardText>
-                <Button color="primary" className="mb-3" onClick={ timerStart }>
-                    인증 메일 보내기
+                <Button color="primary" className="mb-3" >
+                    비밀번호 초기화
                 </Button>
                 <div className="d-flex justify-content-end">
                     <ButtonGroup>
