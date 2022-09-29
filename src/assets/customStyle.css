@@ -66,3 +66,29 @@ a {
 .introduce > div {
     height: 430px !important;
 }
+
+tbody > .list-td > td {
+    height: 4rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.search {
+    width: 40% !important
+}
+
+.searchBtn {
+    width: 6rem;
+    cursor: default !important;
+}
+
+.active > .page-link {
+    background-color: #3f48cc;
+    border-color: #3f48cc;
+}
+
+.page-link:hover, .page-link {
+    color: #3f48cc;
+}
