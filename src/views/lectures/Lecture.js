@@ -2,16 +2,14 @@ import {Alert, Card, CardBody, CardTitle, Col, Container, Form, FormGroup, Input
 import Writer from "../utils/Writer";
 import { Button } from "react-bootstrap";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ClassModal from "./ClassModal";
 
 const modify = () => {
-    window.location.href="/lectures"
     // TODO
 }
 
 const cancel = () => {
-    window.location.href="/lectures"
     // TODO
 }
 
@@ -108,13 +106,17 @@ const LectureClass = (props) => {
                                             { isRegistered ? "등록" : "수정" }하기
                                         </Button>
                                         { !isRegistered && (
-                                            <Button variant="danger" className="mx-lg-3" onClick={ modify }>
-                                                삭제하기
-                                            </Button>
+                                            <Link to="/lectures">
+                                                <Button variant="danger" className="mx-lg-3" onClick={ modify }>
+                                                    삭제하기
+                                                </Button>
+                                            </Link>
                                         ) }
-                                        <Button variant="outline-secondary" className="mx-lg-1" onClick={ cancel }>
-                                            취소
-                                        </Button>
+                                        <Link to="/lectures">
+                                            <Button variant="outline-secondary" className="mx-lg-1" onClick={ cancel }>
+                                                취소
+                                            </Button>
+                                        </Link>
                                     </Col>
                                 </Row>
                             </Form>
