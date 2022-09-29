@@ -6,7 +6,7 @@ import {
     Container,
     Row,
     Table,
-    Button
+    Button, Alert
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -105,7 +105,7 @@ const Lectures = () => {
 
     return (<div>
         <Card>
-            <CardBody>
+            <CardBody className="list-card-body">
                 <Container>
                     <Row>
                         <Col className="p-2 w-100">
@@ -121,36 +121,41 @@ const Lectures = () => {
                     </Row>
                 </Container>
 
-                <Table className="no-wrap mt-3 align-middle" responsive borderless>
-                    <thead>
-                    <tr>
-                        <th className="text-center">No.</th>
-                        <th>제목</th>
-                        <th>Period</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { searchData.slice(offset, offset + 5).map((tdata, index) => (
-                        <tr key={ index } className="border-top list-td">
-                            <td className="text-center">{ tdata.id }</td>
-                            <td>{ tdata.name }</td>
-                            <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
-                            <td>
-                                <span className={`p-2 bg-${ tdata.status } rounded-circle d-inline-block ms-3`}></span>
-                            </td>
-                            <td className="text-center">
-                                <Link to={`/lecture/${ tdata.id }`}>
-                                    <Button color="outline-primary">
-                                        상세 보기
-                                    </Button>
-                                </Link>
-                            </td>
+                { searchData.length > 0
+                    ? <Table className="no-wrap mt-3 align-middle" responsive borderless>
+                        <thead>
+                        <tr>
+                            <th className="text-center">No.</th>
+                            <th>제목</th>
+                            <th>Period</th>
+                            <th>Status</th>
+                            <th></th>
                         </tr>
-                    ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                        { searchData.slice(offset, offset + 5).map((tdata, index) => (
+                            <tr key={ index } className="border-top list-td">
+                                <td className="text-center">{ tdata.id }</td>
+                                <td>{ tdata.name }</td>
+                                <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
+                                <td>
+                                    <span className={`p-2 bg-${ tdata.status } rounded-circle d-inline-block ms-3`}></span>
+                                </td>
+                                <td className="text-center">
+                                    <Link to={`/lecture/${ tdata.id }`}>
+                                        <Button color="outline-primary">
+                                            상세 보기
+                                        </Button>
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </Table>
+                    : <Alert color="light">
+                        데이터가 존재하지 않습니다.
+                    </Alert>
+                }
                 <ListFooter
                     search={ search }
                     onSearchChange={ onSearchChange }

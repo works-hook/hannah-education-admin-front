@@ -89,6 +89,15 @@ tbody > .list-td > td {
     border-color: #3f48cc;
 }
 
-.page-link:hover, .page-link {
-    color: #3f48cc;
+.list-footer {
+    position: absolute;
+    bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    padding-left: 1rem;
+}
+
+.list-card-body {
+    height: 540px !important;
 }
