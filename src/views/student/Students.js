@@ -1,17 +1,13 @@
-import { Card, CardBody, CardTitle, Table } from "reactstrap";
+import { Card, CardBody, CardTitle, Table, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
-import user1 from "../../assets/images/users/user1.jpg";
-import user2 from "../../assets/images/users/user2.jpg";
-import user3 from "../../assets/images/users/user3.jpg";
-import user4 from "../../assets/images/users/user4.jpg";
-import user5 from "../../assets/images/users/user5.jpg";
+import { useState } from "react";
+import ListFooter from "../utils/ListFooter";
+import "../../assets/customStyle.css";
 
 const tableData = [
     {
         id: 1,
-        avatar: user1,
-        name: "Hanna Gover",
+        name: "Java 기본 문법",
         progress: "100",
         status: "success",
         startDate: "2022-01-03",
@@ -20,8 +16,7 @@ const tableData = [
     },
     {
         id: 2,
-        avatar: user2,
-        name: "Hanna Gover",
+        name: "Java 객체 지향",
         progress: "24",
         status: "warning",
         startDate: "2022-01-03",
@@ -30,8 +25,7 @@ const tableData = [
     },
     {
         id: 3,
-        avatar: user3,
-        name: "Hanna Gover",
+        name: "DataBase (MySQL)",
         progress: "87",
         status: "warning",
         startDate: "2022-01-03",
@@ -40,8 +34,7 @@ const tableData = [
     },
     {
         id: 4,
-        avatar: user4,
-        name: "Hanna Gover",
+        name: "Git / GitHub",
         progress: "34",
         status: "warning",
         startDate: "2022-01-03",
@@ -50,8 +43,7 @@ const tableData = [
     },
     {
         id: 5,
-        avatar: user5,
-        name: "Hanna Gover",
+        name: "Spring Framework",
         progress: "0",
         status: "danger",
         startDate: "2022-01-03",
@@ -61,6 +53,16 @@ const tableData = [
 ];
 
 const Lectures = () => {
+    const [search, setSearch] = useState("");
+    const onSearchChange = (e) => setSearch(e.target.value);
+
+    const searchData = tableData.filter((data) => {
+        return data.name.toLocaleLowerCase().includes(search.toLocaleLowerCase());
+    });
+
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * 5;
+
     return (<div>
         <Card>
             <CardBody>
@@ -68,7 +70,7 @@ const Lectures = () => {
                 <Table className="no-wrap mt-3 align-middle" responsive borderless>
                     <thead>
                     <tr>
-                        <th>No</th>
+                        <th className="text-center">No.</th>
                         <th>제목</th>
                         <th>Period</th>
                         <th>Status</th>
@@ -78,24 +80,10 @@ const Lectures = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    { tableData.map((tdata, index) => (
-                        <tr key={ index } className="border-top">
-                            <td>{ tdata.id }</td>
-                            <td>
-                                <div className="d-flex align-items-center p-2">
-                                    <img
-                                        src={ tdata.avatar }
-                                        className="rounded-circle"
-                                        alt="avatar"
-                                        width="45"
-                                        height="45"
-                                    />
-                                    <div className="ms-3">
-                                        <h6 className="mb-0">{ tdata.name }</h6>
-                                        <span className="text-muted">{ tdata.email }</span>
-                                    </div>
-                                </div>
-                            </td>
+                    { searchData.slice(offset, offset + 5).map((tdata, index) => (
+                        <tr key={ index } className="border-top list-td">
+                            <td className="text-center">{ tdata.id }</td>
+                            <td>{ tdata.name }</td>
                             <td>{ tdata.startDate + " ~ " + tdata.endDate }</td>
                             <td>
                                 <span className={`p-2 bg-${ tdata.status } rounded-circle d-inline-block ms-3`}></span>
@@ -104,7 +92,7 @@ const Lectures = () => {
                             <td>{ tdata.progress + "%" }</td>
                             <td>
                                 <Link to={ "/student/" + tdata.id }>
-                                    <Button variant="outline-primary">
+                                    <Button color="outline-primary">
                                         상세 보기
                                     </Button>
                                 </Link>
@@ -113,6 +101,13 @@ const Lectures = () => {
                     ))}
                     </tbody>
                 </Table>
+                <ListFooter
+                    search={ search }
+                    onSearchChange={ onSearchChange }
+                    total={ searchData.length }
+                    page={ page }
+                    setPage={ setPage }
+                />
             </CardBody>
         </Card>
     </div>);
