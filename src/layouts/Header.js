@@ -13,21 +13,31 @@ import {
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/adminprowhite.svg";
 import user1 from "../assets/images/users/user4.jpg";
-import { Link } from "react-router-dom";
 import "../assets/customStyle.css";
+import { useDispatch } from "react-redux";
+import { removeCookieToken } from "../token/Cookies";
+import { DELETE_TOKEN } from "../token/Auth";
+import { useNavigate} from "react-router-dom";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+      dispatch(DELETE_TOKEN());
+      removeCookieToken();
+      return navigate('/login');
+  }
+
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-  const Handletoggle = () => {
-    setIsOpen(!isOpen);
-  };
-  const showMobilemenu = () => {
-    document.getElementById("sidebarArea").classList.toggle("showSidebar");
-  };
+  const handleToggle = () => setIsOpen(!isOpen);
+
+  const showMobileMenu = () => document.getElementById("sidebarArea").classList.toggle("showSidebar");
+
   return (
     <Navbar color="white" light expand="md" className="fix-header">
       <div className="d-flex align-items-center">
@@ -40,7 +50,7 @@ const Header = () => {
         <Button
           color="primary"
           className=" d-lg-none"
-          onClick={() => showMobilemenu()}
+          onClick={ () => showMobileMenu() }
         >
           <i className="bi bi-list"></i>
         </Button>
@@ -50,7 +60,7 @@ const Header = () => {
           color="primary"
           size="sm"
           className="d-sm-block d-md-none"
-          onClick={Handletoggle}
+          onClick={ handleToggle }
         >
           {isOpen ? (
             <i className="bi bi-x"></i>
@@ -73,7 +83,7 @@ const Header = () => {
             ></img>
           </DropdownToggle>
           <DropdownMenu>
-            <Link to={"/login"}><DropdownItem>Logout</DropdownItem></Link>
+            <DropdownItem onClick={ logout }>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </Collapse>

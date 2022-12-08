@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
+import PublicRoute from "./PublicRoute";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout"));
@@ -39,15 +40,15 @@ const ThemeRoutes = [
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <PublicRoute><Login /></PublicRoute>,
   },
   {
     path: "/signUp",
-    element: <SignUp />,
+    element: <PublicRoute><SignUp /></PublicRoute>,
   },
   {
     path: "/findUser",
-    element: <FindUser />,
+    element: <PublicRoute><FindUser /></PublicRoute>,
   },
 ];
 
