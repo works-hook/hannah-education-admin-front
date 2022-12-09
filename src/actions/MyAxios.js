@@ -1,11 +1,7 @@
 import axios from "axios";
 import { getCookieToken } from "../token/Cookies";
 
-const BASE_URL = "/lecture-teacher";
-
-const instance = axios.create({
-  baseURL: BASE_URL,
-});
+const instance = axios.create();
 
 instance.interceptors.request.use(
   config => {

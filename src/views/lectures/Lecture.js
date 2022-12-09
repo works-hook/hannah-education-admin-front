@@ -15,47 +15,28 @@ import {
 } from "reactstrap";
 import Writer from "../utils/Writer";
 import {Button} from "react-bootstrap";
-import React, {lazy, useEffect, useState} from "react";
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import ClassModal from "./ClassModal";
 import {getTags} from "../../actions/UserActions";
 import {deleteLecture, getLecture, saveLecture, updateLecture} from "../../actions/LectureActions";
+import {getClass} from "../../actions/ClassActions";
 
 
 const cancel = () => {
   // TODO
 }
 
-const tableData = [
-  {
-    title: "java 자료형",
-    classDate: "2022-01-03 13:00"
-  },
-  {
-    title: "java 클래스",
-    classDate: "2022-01-03 13:00"
-  },
-  {
-    title: "java 추상화",
-    classDate: "2022-01-03 13:00"
-  },
-  {
-    title: "java 인터페이스",
-    classDate: "2022-01-03 13:00"
-  },
-];
-
 const LectureClass = (props) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const params = useParams();
   const isRegistered = props.isRegistered;
 
   const [showWriter, setShowWriter] = useState(isRegistered);
+  const [classId, setClassId] = useState(null);
 
   const [modal, setModal] = useState(false);
   const [isModify, setIsModify] = useState(false);
-
   const toggle = () => setModal(!modal);
 
   const [title, setTitle] = useState("");
@@ -69,24 +50,38 @@ const LectureClass = (props) => {
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState("");
   const onImgUrlHandler = (e) => setThumbnailImgUrl(e.currentTarget.value);
 
+  const [tags, setTags] = useState(null)
+  const [saveTags, setSaveTags] = useState([]);
+  const onAddSearchTag = (tag) => setSaveTags([...saveTags, tag]);
+  const offRemoveSearchTag = (tag) => setSaveTags(saveTags.filter(v => v !== tag));
+
+  const [classData, setClassData] = useState([]);
+
+  useEffect(() => {
+    if (!tags) {
+      const fetchData = async () => getTags();
+      fetchData().then(response => setTags(response.data))
+    }
+  }, []);
+
   useEffect(() => {
     if (!isRegistered && !content) {
-      const fetchData = async () => getLecture(Number(params.lectureId));
-      fetchData().then(response => setData(response.data));
+      const fetchLectureData = async () => getLecture(Number(params.lectureId));
+      fetchLectureData().then(response => setData(response.data));
+
+      const fetchClassData = async () => getClass(Number(params.lectureId));
+      fetchClassData().then(response => setClassData(response.data));
     }
   }, []);
 
   const setData = (data) => {
-    console.log(data)
     setTitle(data.title);
     setContent(data.content);
     setStartDate(data.startDate);
     setEndDate(data.endDate);
     setThumbnailImgUrl(data.thumbnailImgUrl);
-
     const tags = [];
     data.tags.map((tag) => tags.push(tag.tagId));
-
     setSaveTags(tags);
     setShowWriter(true);
   }
@@ -102,20 +97,8 @@ const LectureClass = (props) => {
     }
   }
 
-  const [saveTags, setSaveTags] = useState([]);
-  const onAddSearchTag = (tag) => setSaveTags([...saveTags, tag]);
-  const offRemoveSearchTag = (tag) => setSaveTags(saveTags.filter(v => v !== tag));
-
-  const [tags, setTags] = useState(null)
-  useEffect(() => {
-    if (!tags) {
-      const fetchData = async () => getTags();
-      fetchData().then(response => setTags(response.data))
-    }
-  }, []);
-
   const save = () => {
-    const data = getData()
+    const data = getData();
     saveLecture(data).then(response => {
       alert(response.message);
       navigate("/lectures");
@@ -123,13 +106,13 @@ const LectureClass = (props) => {
   }
 
   const update = () => {
-    const data = getData()
+    const data = getData();
     updateLecture(Number(params.lectureId), data).then(response => {
       alert(response.message);
     });
   }
 
-  const deleted = () => {
+  const remove = () => {
     deleteLecture(Number(params.lectureId)).then(response => {
       alert(response.message);
       navigate("/lectures", {replace: true});
@@ -277,7 +260,7 @@ const LectureClass = (props) => {
                           수정하기
                         </Button>
                         <Link to="/lectures">
-                          <Button variant="danger" className="mx-lg-3" onClick={deleted}>
+                          <Button variant="danger" className="mx-lg-3" onClick={remove}>
                             삭제하기
                           </Button>
                         </Link>
@@ -334,15 +317,16 @@ const LectureClass = (props) => {
                     </tr>
                     </thead>
                     <tbody>
-                    {tableData.map((data, index) => (
+                    {classData.map((data, index) => (
                       <tr key={index} className="border-top">
-                        <td>{index + 1}</td>
+                        <td>{data.classId}</td>
                         <td>{data.title}</td>
-                        <td>{data.classDate}</td>
+                        <td>{data.startDate + ' ' + data.startTime}</td>
                         <td className="d-flex justify-content-sm-end px-lg-5">
                           <Button variant="outline-primary" size="sm" onClick={() => {
                             toggle();
                             setIsModify(true);
+                            setClassId(data.classId);
                           }}>
                             <i className="bi bi-pencil me-2"> </i>
                             수정
@@ -352,7 +336,15 @@ const LectureClass = (props) => {
                     ))}
                     </tbody>
                   </Table>
-                  <ClassModal toggle={toggle} modal={modal} isModify={isModify} lectureId={params.lectureId}/>
+                  {modal &&
+                    <ClassModal
+                      toggle={toggle}
+                      modal={modal}
+                      isModify={isModify}
+                      lectureId={params.lectureId}
+                      classId={classId}
+                    />
+                  }
                 </>
               }
             </CardBody>
