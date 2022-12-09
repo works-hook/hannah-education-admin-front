@@ -18,7 +18,7 @@ export default function Writer(props) {
 
 	const onChange = () => {
 		const data = editorRef.current.getInstance().getHTML()
-		console.log(data)
+    props.onChange(data)
 	}
 
 	return (

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import instance from "./MyAxios";
 
 // promise 요청 타임아웃 시간 선언
 // const TIME_OUT = 300 * 1000;
@@ -16,9 +17,14 @@ import axios from 'axios';
 //     return new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), TIME_OUT));
 // };
 
-const BASE_URL = "http://localhost:8080/users";
+const BASE_URL = "http://localhost:8080";
+
+export const getTags = async() => {
+    const { data } = await  instance.get(`${BASE_URL}/lecture/tags`);
+    return data;
+}
 
 export function loginUser(dataToSubmit) {
-    return axios.post(`${BASE_URL}/login`, dataToSubmit)
+    return axios.post(`${BASE_URL}/users/login`, dataToSubmit)
         .then(response => response.data)
 }

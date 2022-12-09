@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.d-flex {
+    display: flex;
+}
+
 .btn-outline-menuSuccess {
     --bs-btn-hover-color: rgba(57, 157, 68, 0.87);
     --bs-btn-hover-bg: none;
