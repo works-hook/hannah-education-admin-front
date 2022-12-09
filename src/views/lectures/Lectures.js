@@ -9,7 +9,7 @@ import {
   Button, Alert
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import ListFooter from "../utils/ListFooter";
 import { getLectures } from "../../actions/LectureActions";
 
@@ -21,12 +21,9 @@ const Lectures = () => {
   useEffect(() => {
     if (!lectures) {
       const fetchData = async () => getLectures();
-      fetchData().then(response => {
-        setLectures(response.data);
-        console.log(response);
-      })
+      fetchData().then(response => setLectures(response.data));
     }
-  });
+  }, []);
 
   const searchData = lectures && lectures.length > 0 ? lectures.filter((data) => {
     return data.title.toLocaleLowerCase().includes(search.toLocaleLowerCase());

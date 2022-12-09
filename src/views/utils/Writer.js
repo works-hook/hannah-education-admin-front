@@ -1,5 +1,5 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
+import {Editor} from '@toast-ui/react-editor';
 
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
@@ -13,23 +13,23 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import { useRef } from "react";
 
-export default function Writer(props) {
-	const editorRef = useRef();
+export default function Writer({value, onContentHandler}) {
+  const editorRef = useRef();
 
-	const onChange = () => {
-		const data = editorRef.current.getInstance().getHTML()
-    props.onChange(data)
-	}
+  const onChange = () => {
+    const data = editorRef.current.getInstance().getHTML()
+    onContentHandler(data)
+  }
 
-	return (
-	<Editor
-      	previewStyle='vertical'
-		initialValue={props.value}
-		initialEditType="wysiwyg"
-		language='ko-KR'
-		ref={editorRef}
-		onChange={onChange}
-      	plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
-	/>
-	);
+  return (
+    <Editor
+      previewStyle='vertical'
+      initialValue={ value }
+      initialEditType="wysiwyg"
+      language='ko-KR'
+      ref={ editorRef }
+      onChange={ onChange }
+      plugins={[colorSyntax, [codeSyntaxHighlight, {highlighter: Prism}]]}
+    />
+  );
 }

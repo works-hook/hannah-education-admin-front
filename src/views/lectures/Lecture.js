@@ -15,11 +15,11 @@ import {
 } from "reactstrap";
 import Writer from "../utils/Writer";
 import {Button} from "react-bootstrap";
-import React, {useEffect, useState} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import React, {lazy, useEffect, useState} from "react";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import ClassModal from "./ClassModal";
 import {getTags} from "../../actions/UserActions";
-import {saveLecture} from "../../actions/LectureActions";
+import {deleteLecture, getLecture, saveLecture, updateLecture} from "../../actions/LectureActions";
 
 
 const cancel = () => {
@@ -47,8 +47,11 @@ const tableData = [
 
 const LectureClass = (props) => {
   const navigate = useNavigate();
-  const lectureId = useParams();
-  const isRegistered = props.isRegistered
+  const location = useLocation();
+  const params = useParams();
+  const isRegistered = props.isRegistered;
+
+  const [showWriter, setShowWriter] = useState(isRegistered);
 
   const [modal, setModal] = useState(false);
   const [isModify, setIsModify] = useState(false);
@@ -66,13 +69,30 @@ const LectureClass = (props) => {
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState("");
   const onImgUrlHandler = (e) => setThumbnailImgUrl(e.currentTarget.value);
 
-  const [saveTags, setSaveTags] = useState([]);
-  const onAddSearchTag = (tag) => setSaveTags([...saveTags, tag]);
-  const offRemoveSearchTag = (tag) => setSaveTags(saveTags.filter(v => v !== tag));
+  useEffect(() => {
+    if (!isRegistered && !content) {
+      const fetchData = async () => getLecture(Number(params.lectureId));
+      fetchData().then(response => setData(response.data));
+    }
+  }, []);
 
-  const [tags, setTags] = useState(null)
-  const save = () => {
-    const data = {
+  const setData = (data) => {
+    console.log(data)
+    setTitle(data.title);
+    setContent(data.content);
+    setStartDate(data.startDate);
+    setEndDate(data.endDate);
+    setThumbnailImgUrl(data.thumbnailImgUrl);
+
+    const tags = [];
+    data.tags.map((tag) => tags.push(tag.tagId));
+
+    setSaveTags(tags);
+    setShowWriter(true);
+  }
+
+  const getData = () => {
+    return {
       title: title,
       content: content,
       startDate: startDate,
@@ -80,18 +100,41 @@ const LectureClass = (props) => {
       thumbnailImgUrl: thumbnailImgUrl,
       tags: saveTags,
     }
+  }
+
+  const [saveTags, setSaveTags] = useState([]);
+  const onAddSearchTag = (tag) => setSaveTags([...saveTags, tag]);
+  const offRemoveSearchTag = (tag) => setSaveTags(saveTags.filter(v => v !== tag));
+
+  const [tags, setTags] = useState(null)
+  useEffect(() => {
+    if (!tags) {
+      const fetchData = async () => getTags();
+      fetchData().then(response => setTags(response.data))
+    }
+  }, []);
+
+  const save = () => {
+    const data = getData()
     saveLecture(data).then(response => {
       alert(response.message);
       navigate("/lectures");
     });
   }
 
-  useEffect(() => {
-    if (!tags) {
-      const fetchData = async () => getTags();
-      fetchData().then(response => setTags(response.data))
-    }
-  });
+  const update = () => {
+    const data = getData()
+    updateLecture(Number(params.lectureId), data).then(response => {
+      alert(response.message);
+    });
+  }
+
+  const deleted = () => {
+    deleteLecture(Number(params.lectureId)).then(response => {
+      alert(response.message);
+      navigate("/lectures", {replace: true});
+    });
+  }
 
   return (
     <>
@@ -117,10 +160,10 @@ const LectureClass = (props) => {
                 </FormGroup>
                 <FormGroup>
                   <Label for="content">소개글</Label>
-                  <Writer
-                    value={content}
-                    onChange={onContentHandler}
-                  />
+                  {showWriter && <Writer
+                      value={content}
+                      onContentHandler={onContentHandler}
+                    />}
                 </FormGroup>
                 <Row>
                   <Col>
@@ -154,13 +197,48 @@ const LectureClass = (props) => {
                 </Row>
                 <FormGroup>
                   <Label for="thumbnail">썸네일</Label>
-                  <Input
-                    id="thumbnail"
-                    name="thumbnail"
-                    type="file"
-                    value={thumbnailImgUrl}
-                    onChange={onImgUrlHandler}
-                  />
+                  {isRegistered ?
+                    <Input
+                      id="thumbnail"
+                      name="thumbnail"
+                      type="file"
+                      value={thumbnailImgUrl}
+                      onChange={onImgUrlHandler}
+                    /> :
+                    <div>
+                      <Input
+                        id="thumbnail"
+                        name="thumbnail"
+                        type="file"
+                        onChange={onImgUrlHandler}
+                      />
+                      <img className="mt-3" src={thumbnailImgUrl} alt="thumbnailImgUrl" />
+                    </div>
+                  //   <Card className="my-2"> // TODO image server api 만들고 나서 수정하기
+                  //   <CardBody>
+                  //   <CardTitle tag="h5">
+                  //   Card Title
+                  //   </CardTitle>
+                  //   <CardText>
+                  //   This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                  //   </CardText>
+                  //   <CardText>
+                  //   <small className="text-muted">
+                  //   Last updated 3 mins ago
+                  //   </small>
+                  //   </CardText>
+                  //   </CardBody>
+                  //   <CardImg
+                  //   alt="Card image cap"
+                  //   bottom
+                  //   src="https://picsum.photos/900/180"
+                  //   style={{
+                  //   height: 180
+                  // }}
+                  //   width="100%"
+                  //   />
+                  //   </Card>
+                  }
                 </FormGroup>
                 <Row className="mb-4">
                   <Label for="tags">태그</Label>
@@ -189,15 +267,21 @@ const LectureClass = (props) => {
                 </Row>
                 <Row>
                   <div className="d-flex">
-                    <Button variant="primary" onClick={save}>
-                      {isRegistered ? "등록" : "수정"}하기
-                    </Button>
-                    {!isRegistered && (
-                      <Link to="/lectures">
-                        <Button variant="danger" className="mx-lg-3" onClick={save}>
-                          삭제하기
+                    {isRegistered ? (
+                      <Button variant="primary" onClick={save}>
+                        등록하기
+                      </Button>
+                    ) : (
+                      <>
+                        <Button variant="primary" onClick={update}>
+                          수정하기
                         </Button>
-                      </Link>
+                        <Link to="/lectures">
+                          <Button variant="danger" className="mx-lg-3" onClick={deleted}>
+                            삭제하기
+                          </Button>
+                        </Link>
+                      </>
                     )}
                     <Link to="/lectures">
                       <Button variant="outline-secondary" className="mx-lg-1" onClick={cancel}>
@@ -268,7 +352,7 @@ const LectureClass = (props) => {
                     ))}
                     </tbody>
                   </Table>
-                  <ClassModal toggle={toggle} modal={modal} isModify={isModify} lectureId={lectureId}/>
+                  <ClassModal toggle={toggle} modal={modal} isModify={isModify} lectureId={params.lectureId}/>
                 </>
               }
             </CardBody>

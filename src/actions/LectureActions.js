@@ -1,13 +1,26 @@
 import instance from "./MyAxios";
 
-const getLectures = async() => {
-  const { data } = await instance.get("/lecture");
+export const getLectures = async() => {
+  const { data } = await instance.get("");
   return data;
 }
 
-const saveLecture = async(body) => {
+export const getLecture = async(id) => {
+  const { data } = await instance.get(`/${id}`);
+  return data;
+}
+
+export const saveLecture = async(body) => {
   const { data } = await instance.post("", body)
   return data
 }
 
-export { getLectures, saveLecture }
+export const updateLecture = async(id, body) => {
+  const { data } = await instance.patch(`/${id}`, body)
+  return data
+}
+
+export const deleteLecture = async(id) => {
+  const { data } = await instance.delete(`${id}`);
+  return data;
+}
