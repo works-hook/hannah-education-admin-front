@@ -2,7 +2,7 @@ import {
   Alert,
   Badge,
   Card,
-  CardBody,
+  CardBody, CardImg,
   CardTitle,
   Col,
   Container,
@@ -23,6 +23,7 @@ import {getTags} from "../../actions/UserActions";
 import {deleteLecture, getLecture, saveLecture, updateLecture} from "../../actions/LectureActions";
 import {getClass} from "../../actions/ClassActions";
 import {getNotices} from "../../actions/NoticeActions";
+import {uploadImage} from "../../actions/ImageActions";
 
 const cancel = () => {}
 
@@ -49,10 +50,20 @@ const LectureClass = (props) => {
   const onContentHandler = (data) => setContent(data);
   const [isShow, setIsShow] = useState(false);
   const onIsShowHandler = () => setIsShow(!isShow);
-  const [thumbnailImgUrl, setThumbnailImgUrl] = useState("");
-  const onImgUrlHandler = (e) => setThumbnailImgUrl(e.currentTarget.value);
 
-  const [tags, setTags] = useState(null)
+  const [thumbnailImgUrl, setThumbnailImgUrl] = useState("");
+  const onImgUrlHandler = (e) => {
+    const formData = new FormData();
+    formData.append('file', e.currentTarget.files[0]);
+
+    const fetchData = async () => uploadImage("LECTURE", formData);
+    fetchData().then(response => {
+      updateImage(response.data.data);
+      setThumbnailImgUrl(response.data.data);
+    });
+  }
+
+  const [tags, setTags] = useState(null);
   const [saveTags, setSaveTags] = useState([]);
   const onAddSearchTag = (tag) => setSaveTags([...saveTags, tag]);
   const offRemoveSearchTag = (tag) => setSaveTags(saveTags.filter(v => v !== tag));
@@ -123,6 +134,14 @@ const LectureClass = (props) => {
     });
   }
 
+  const updateImage = (imageUrl) => {
+    const data = getData();
+    data.thumbnailImgUrl = imageUrl;
+    updateLecture(Number(params.lectureId), data).then(response => {
+      alert(response.message);
+    });
+  }
+
   return (
     <>
       <Row>
@@ -184,32 +203,10 @@ const LectureClass = (props) => {
                         type="file"
                         onChange={onImgUrlHandler}
                       />
-                      <img className="mt-3" src={thumbnailImgUrl} alt="thumbnailImgUrl" />
+                      <Card style={{width: '30%'}}>
+                        <CardImg className="mt-3" src={thumbnailImgUrl} alt="thumbnailImgUrl"/>
+                      </Card>
                     </div>
-                  //   <Card className="my-2"> // TODO image server api 만들고 나서 수정하기
-                  //   <CardBody>
-                  //   <CardTitle tag="h5">
-                  //   Card Title
-                  //   </CardTitle>
-                  //   <CardText>
-                  //   This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                  //   </CardText>
-                  //   <CardText>
-                  //   <small className="text-muted">
-                  //   Last updated 3 mins ago
-                  //   </small>
-                  //   </CardText>
-                  //   </CardBody>
-                  //   <CardImg
-                  //   alt="Card image cap"
-                  //   bottom
-                  //   src="https://picsum.photos/900/180"
-                  //   style={{
-                  //   height: 180
-                  // }}
-                  //   width="100%"
-                  //   />
-                  //   </Card>
                   }
                 </FormGroup>
                 <Row className="mb-4">
