@@ -56,7 +56,7 @@ const Lectures = () => {
             <tr>
               <th className="text-center">No.</th>
               <th>제목</th>
-              <th>Period</th>
+              <th>CreateDate</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -66,9 +66,9 @@ const Lectures = () => {
               <tr key={index} className="border-top list-td">
                 <td className="text-center">{data.lectureId}</td>
                 <td>{data.title}</td>
-                <td>{data.startDate + " ~ " + data.endDate}</td>
+                <td>{data.createdDate}</td>
                 <td>
-                  <span className={`p-2 bg-${data.state} rounded-circle d-inline-block ms-3`}></span>
+                  <span className={`p-2 bg-${data.isShow ? 'success' : 'danger'} rounded-circle d-inline-block ms-3`}></span>
                 </td>
                 <td className="text-center">
                   <Link to={`/lecture/${data.lectureId}`}>

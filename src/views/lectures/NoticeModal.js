@@ -11,8 +11,7 @@ import {
   Input,
 } from "reactstrap";
 import Writer from '../utils/Writer';
-import {deleteClass, getOneClass, saveClass, updateClass} from "../../actions/ClassActions";
-
+import {deleteNotice, getOneNotice, saveNotice, updateNotice} from "../../actions/NoticeActions";
 
 const ClassModal = (props) => {
 
@@ -38,14 +37,14 @@ const ClassModal = (props) => {
 
   useEffect(() => {
     if (props.isModify) {
-      const fetchData = async () => await getOneClass(props.classId);
+      const fetchData = async () => await getOneNotice(props.noticeId);
       fetchData().then(response => setData(response.data));
     }
   }, []);
 
   const save = () => {
     const data = getData();
-    saveClass(props.lectureId, data).then(response => {
+    saveNotice(props.lectureId, data).then(response => {
       alert(response.message);
       props.toggle();
     });
@@ -54,14 +53,14 @@ const ClassModal = (props) => {
   const update = () => {
     const data = getData();
     console.log(data)
-    updateClass(props.classId, data).then(response => {
+    updateNotice(props.noticeId, data).then(response => {
       alert(response.message);
       props.toggle();
     });
   }
 
   const remove = () => {
-    deleteClass(props.classId).then(response => {
+    deleteNotice(props.noticeId).then(response => {
       alert(response.message);
       props.toggle();
     })
@@ -69,7 +68,7 @@ const ClassModal = (props) => {
 
   return (
     <Modal size="xl" isOpen={props.modal} toggle={props.toggle}>
-      <ModalHeader>수업 {props.isModify ? "수정" : "등록"}하기</ModalHeader>
+      <ModalHeader>공지사항 {props.isModify ? "수정" : "등록"}하기</ModalHeader>
       <ModalBody>
         <Form>
           <FormGroup>

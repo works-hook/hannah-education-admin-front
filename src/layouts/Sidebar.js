@@ -8,12 +8,12 @@ const navigation = [
     activeHref: "lecture",
     icon: "bi bi-card-text"
   },
-  {
-    title: "수강생 관리",
-    href: "/students",
-    activeHref: "student",
-    icon: "bi bi-people"
-  },
+  // {
+  //   title: "수강생 관리",
+  //   href: "/students",
+  //   activeHref: "student",
+  //   icon: "bi bi-people"
+  // },
   {
     title: "내 정보 관리",
     href: "/teacher",

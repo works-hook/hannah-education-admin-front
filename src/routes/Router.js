@@ -31,8 +31,8 @@ const ThemeRoutes = [
       { path: "/lecture/:lectureId", exact: true, element: <Lecture isRegistered={false} /> },
       { path: "/lecture", exact: true, element: <Lecture isRegistered={true} /> },
 
-      { path: "/students", exact: true, element: <Students /> },
-      { path: "/student/:lectureId", exact: true, element: <Student /> },
+      // { path: "/students", exact: true, element: <Students /> },
+      // { path: "/student/:lectureId", exact: true, element: <Student /> },
 
       { path: "/teacher", exact: true, element: <Teacher /> },
       { path: "/teacher/modify", exact: true, element: <Teacher isModify={true}/> },

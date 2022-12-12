@@ -18,14 +18,13 @@ import {Button} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import ClassModal from "./ClassModal";
+import NoticeModal from "./NoticeModal";
 import {getTags} from "../../actions/UserActions";
 import {deleteLecture, getLecture, saveLecture, updateLecture} from "../../actions/LectureActions";
 import {getClass} from "../../actions/ClassActions";
+import {getNotices} from "../../actions/NoticeActions";
 
-
-const cancel = () => {
-  // TODO
-}
+const cancel = () => {}
 
 const LectureClass = (props) => {
   const navigate = useNavigate();
@@ -34,19 +33,22 @@ const LectureClass = (props) => {
 
   const [showWriter, setShowWriter] = useState(isRegistered);
   const [classId, setClassId] = useState(null);
+  const [noticeId, setNoticeId] = useState(null);
 
-  const [modal, setModal] = useState(false);
+  const [classModal, setClassModal] = useState(false);
+  const classToggle = () => setClassModal(!classModal);
+
+  const [noticeModal, setNoticeModal] = useState(false);
+  const noticeToggle = () => setNoticeModal(!noticeModal);
+
   const [isModify, setIsModify] = useState(false);
-  const toggle = () => setModal(!modal);
 
   const [title, setTitle] = useState("");
   const onTitleHandler = (e) => setTitle(e.currentTarget.value);
   const [content, setContent] = useState("");
   const onContentHandler = (data) => setContent(data);
-  const [startDate, setStartDate] = useState("");
-  const onStartDateHandler = (e) => setStartDate(e.currentTarget.value);
-  const [endDate, setEndDate] = useState("");
-  const onEndDateHandler = (e) => setEndDate(e.currentTarget.value);
+  const [isShow, setIsShow] = useState(false);
+  const onIsShowHandler = () => setIsShow(!isShow);
   const [thumbnailImgUrl, setThumbnailImgUrl] = useState("");
   const onImgUrlHandler = (e) => setThumbnailImgUrl(e.currentTarget.value);
 
@@ -56,6 +58,7 @@ const LectureClass = (props) => {
   const offRemoveSearchTag = (tag) => setSaveTags(saveTags.filter(v => v !== tag));
 
   const [classData, setClassData] = useState([]);
+  const [noticeData, setNoticeData] = useState([]);
 
   useEffect(() => {
     if (!tags) {
@@ -71,14 +74,16 @@ const LectureClass = (props) => {
 
       const fetchClassData = async () => getClass(Number(params.lectureId));
       fetchClassData().then(response => setClassData(response.data));
+
+      const fetchNoticeData = async () => getNotices(Number(params.lectureId));
+      fetchNoticeData().then(response => setNoticeData(response.data));
     }
   }, []);
 
   const setData = (data) => {
     setTitle(data.title);
     setContent(data.content);
-    setStartDate(data.startDate);
-    setEndDate(data.endDate);
+    setIsShow(data.isShow);
     setThumbnailImgUrl(data.thumbnailImgUrl);
     const tags = [];
     data.tags.map((tag) => tags.push(tag.tagId));
@@ -90,8 +95,7 @@ const LectureClass = (props) => {
     return {
       title: title,
       content: content,
-      startDate: startDate,
-      endDate: endDate,
+      isShow: isShow,
       thumbnailImgUrl: thumbnailImgUrl,
       tags: saveTags,
     }
@@ -148,35 +152,20 @@ const LectureClass = (props) => {
                       onContentHandler={onContentHandler}
                     />}
                 </FormGroup>
-                <Row>
-                  <Col>
-                    <FormGroup>
-                      <Label for="startDate">
-                        시작 일자
-                      </Label>
+                <Row className="my-2">
+                  <div className="d-flex">
+                    <Label for="isShow">노출 여부</Label>
+                    <FormGroup switch className="mx-lg-3">
                       <Input
-                        id="startDate"
-                        name="startDate"
-                        type="date"
-                        value={startDate}
-                        onChange={onStartDateHandler}
+                        id="isShow"
+                        name="isShow"
+                        type="switch"
+                        checked={isShow}
+                        onChange={onIsShowHandler}
+                        size="xxl"
                       />
                     </FormGroup>
-                  </Col>
-                  <Col>
-                    <FormGroup>
-                      <Label for="endDate">
-                        종료 일자
-                      </Label>
-                      <Input
-                        id="endDate"
-                        name="endDate"
-                        type="date"
-                        value={endDate}
-                        onChange={onEndDateHandler}
-                      />
-                    </FormGroup>
-                  </Col>
+                  </div>
                 </Row>
                 <FormGroup>
                   <Label for="thumbnail">썸네일</Label>
@@ -282,9 +271,9 @@ const LectureClass = (props) => {
         <Col>
           <Card>
             <Container>
-              <Row className="d-flex">
+              <Row className="d-flex border-bottom">
                 <Col>
-                  <CardTitle tag="h3" className="border-bottom p-3 mb-0">
+                  <CardTitle tag="h3" className="p-3 mb-0">
                     <i className="bi bi-textarea-resize me-2"> </i>
                     수업 관리하기
                   </CardTitle>
@@ -292,7 +281,7 @@ const LectureClass = (props) => {
                 {!isRegistered && (
                   <Col className="d-flex flex-row-reverse align-items-center">
                     <Button variant="secondary" onClick={() => {
-                      toggle();
+                      classToggle();
                       setIsModify(false);
                     }}>
                       수업 등록
@@ -312,7 +301,6 @@ const LectureClass = (props) => {
                     <tr>
                       <td>No</td>
                       <th>제목</th>
-                      <th>Period</th>
                       <th></th>
                     </tr>
                     </thead>
@@ -321,10 +309,9 @@ const LectureClass = (props) => {
                       <tr key={index} className="border-top">
                         <td>{data.classId}</td>
                         <td>{data.title}</td>
-                        <td>{data.startDate + ' ' + data.startTime}</td>
                         <td className="d-flex justify-content-sm-end px-lg-5">
                           <Button variant="outline-primary" size="sm" onClick={() => {
-                            toggle();
+                            classToggle();
                             setIsModify(true);
                             setClassId(data.classId);
                           }}>
@@ -336,13 +323,84 @@ const LectureClass = (props) => {
                     ))}
                     </tbody>
                   </Table>
-                  {modal &&
+                  {classModal &&
                     <ClassModal
-                      toggle={toggle}
-                      modal={modal}
+                      toggle={classToggle}
+                      modal={classModal}
                       isModify={isModify}
                       lectureId={params.lectureId}
                       classId={classId}
+                    />
+                  }
+                </>
+              }
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Card>
+            <Container>
+              <Row className="d-flex border-bottom">
+                <Col>
+                  <CardTitle tag="h3" className="p-3 mb-0">
+                    <i className="bi bi-textarea-resize me-2"> </i>
+                    공지 사항 관리하기
+                  </CardTitle>
+                </Col>
+                {!isRegistered && (
+                  <Col className="d-flex flex-row-reverse align-items-center">
+                    <Button variant="secondary" onClick={() => {
+                      noticeToggle();
+                      setIsModify(false);
+                    }}>
+                      공지 사항 등록
+                    </Button>
+                  </Col>
+                )}
+              </Row>
+            </Container>
+            <CardBody>
+              {isRegistered
+                ? <Alert color="primary">
+                  공지 사항 관리는 강의를 등록하신 뒤에 사용하실 수 있습니다.
+                </Alert>
+                : <>
+                  <Table className="no-wrap mt-3 align-middle" responsive borderless>
+                    <thead>
+                    <tr>
+                      <td>No</td>
+                      <th>제목</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {noticeData.map((data, index) => (
+                      <tr key={index} className="border-top">
+                        <td>{data.noticeId}</td>
+                        <td>{data.title}</td>
+                        <td className="d-flex justify-content-sm-end px-lg-5">
+                          <Button variant="outline-primary" size="sm" onClick={() => {
+                            noticeToggle();
+                            setIsModify(true);
+                            setNoticeId(data.noticeId)
+                          }}>
+                            <i className="bi bi-pencil me-2"> </i>
+                            수정
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                    </tbody>
+                  </Table>
+                  {noticeModal &&
+                    <NoticeModal
+                      toggle={noticeToggle}
+                      modal={noticeModal}
+                      isModify={isModify}
+                      lectureId={params.lectureId}
+                      noticeId={noticeId}
                     />
                   }
                 </>
