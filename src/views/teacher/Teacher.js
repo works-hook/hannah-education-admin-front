@@ -11,6 +11,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Writer from "../utils/Writer";
 import {useEffect, useState} from "react";
 import {getUser, updateUser} from "../../actions/MyPageActions";
+import {uploadImage} from "../../actions/ImageActions";
 
 const Teacher = (props) => {
   const navigate = useNavigate();
@@ -30,6 +31,17 @@ const Teacher = (props) => {
   const onOneLineIntroductionHandler = (e) => setOneLineIntroduction(e.currentTarget.value);
   const [introduction, setIntroduction] = useState("");
   const onIntroductionHandler = (data) => setIntroduction(data);
+
+  const onProfileImgHandler = (e) => {
+    const formData = new FormData();
+    formData.append('file', e.currentTarget.files[0]);
+
+    const fetchData = async () => uploadImage("USER", formData);
+    fetchData().then(response => {
+      imageUpdate(response.data.data);
+      setImageUrl(response.data.data);
+    });
+  }
 
   const setData = (data) => {
     setAccount(data.account);
@@ -70,6 +82,15 @@ const Teacher = (props) => {
     });
   }
 
+  const imageUpdate = (imageUrl) => {
+    const data = getData();
+    data.imageUrl = imageUrl;
+    updateUser(data).then(response => {
+      alert(response.message);
+      navigate("/teacher");
+    });
+  }
+
   return (<>
     <Card>
       <CardBody>
@@ -97,6 +118,7 @@ const Teacher = (props) => {
                       name="profileImage"
                       type="file"
                       size="sm"
+                      onChange={onProfileImgHandler}
                     />
                   </FormGroup>
                 </Form>
