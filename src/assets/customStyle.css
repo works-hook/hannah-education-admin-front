@@ -105,3 +105,11 @@ tbody > .list-td > td {
 .list-card-body {
     height: 540px !important;
 }
+
+.row > * {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+    margin-top: var(--bs-gutter-y);
+    padding: 0;
+}

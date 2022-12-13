@@ -171,7 +171,7 @@ const LectureClass = (props) => {
                       onContentHandler={onContentHandler}
                     />}
                 </FormGroup>
-                <Row className="my-2">
+                <Row className="my-2 mx-1">
                   <div className="d-flex">
                     <Label for="isShow">노출 여부</Label>
                     <FormGroup switch className="mx-lg-3">
@@ -209,30 +209,32 @@ const LectureClass = (props) => {
                     </div>
                   }
                 </FormGroup>
-                <Row className="mb-4">
+                <Row className="mb-4 mx-1 justify-content-start">
                   <Label for="tags">태그</Label>
-                  <div className="d-flex">
                     {tags ? tags.map((tag, index) => {
                       return (
                         saveTags.includes(tag.id)
-                          ? <div key={index} className="pointer active" onClick={() => {
-                            offRemoveSearchTag(tag.id);
-                          }}>
-                            <Badge pill className="m-1 text-dark" color="light">
-                              {tag.name}
-                              <span aria-hidden="true">&nbsp;&nbsp;×</span>
-                            </Badge>
-                          </div>
-                          : <div key={index} className="pointer" onClick={() => {
-                            onAddSearchTag(tag.id);
-                          }}>
-                            <Badge pill className="m-1">
-                              {tag.name}
-                            </Badge>
-                          </div>
+                          ? <Col>
+                            <div key={index} className="pointer active" onClick={() => {
+                              offRemoveSearchTag(tag.id);
+                            }}>
+                              <Badge pill className="m-1 text-dark" color="light">
+                                {tag.name}
+                                <span aria-hidden="true">&nbsp;&nbsp;×</span>
+                              </Badge>
+                            </div>
+                          </Col>
+                          : <Col>
+                            <div key={index} className="pointer" onClick={() => {
+                              onAddSearchTag(tag.id);
+                            }}>
+                              <Badge pill className="m-1">
+                                {tag.name}
+                              </Badge>
+                            </div>
+                          </Col>
                       );
                     }) : <span>태그가 존재하지 않습니다.</span>}
-                  </div>
                 </Row>
                 <Row>
                   <div className="d-flex">
