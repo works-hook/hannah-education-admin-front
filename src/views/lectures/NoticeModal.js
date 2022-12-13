@@ -46,15 +46,16 @@ const ClassModal = (props) => {
     const data = getData();
     saveNotice(props.lectureId, data).then(response => {
       alert(response.message);
+      props.fetchNoticeData();
       props.toggle();
     });
   }
 
   const update = () => {
     const data = getData();
-    console.log(data)
     updateNotice(props.noticeId, data).then(response => {
       alert(response.message);
+      props.fetchNoticeData();
       props.toggle();
     });
   }
@@ -62,6 +63,7 @@ const ClassModal = (props) => {
   const remove = () => {
     deleteNotice(props.noticeId).then(response => {
       alert(response.message);
+      props.fetchNoticeData();
       props.toggle();
     })
   }

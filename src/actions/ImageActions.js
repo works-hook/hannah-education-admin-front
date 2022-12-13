@@ -16,11 +16,14 @@ instance.interceptors.request.use(
   }
 )
 
-export const uploadImage = (path, file) => {
-  return instance
+export const uploadImage = async (path, file) => {
+  const url = `${BASE_URL}/${path}`
+  console.log(url)
+  const { data } = await instance
     .request({
       method: "POST",
-      url: `${BASE_URL}/${path}`,
+      url: `${BASE_URL}/LECTURE`,
       data: file
     });
+  return data;
 }

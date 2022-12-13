@@ -14,7 +14,7 @@ import {
   Table
 } from "reactstrap";
 import Writer from "../utils/Writer";
-import {Button} from "react-bootstrap";
+import {Button, Image} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import ClassModal from "./ClassModal";
@@ -51,16 +51,13 @@ const LectureClass = (props) => {
   const [isShow, setIsShow] = useState(false);
   const onIsShowHandler = () => setIsShow(!isShow);
 
-  const [thumbnailImgUrl, setThumbnailImgUrl] = useState("");
+  const [thumbnailImgUrl, setThumbnailImgUrl] = useState(null);
   const onImgUrlHandler = (e) => {
     const formData = new FormData();
     formData.append('file', e.currentTarget.files[0]);
 
     const fetchData = async () => uploadImage("LECTURE", formData);
-    fetchData().then(response => {
-      updateImage(response.data.data);
-      setThumbnailImgUrl(response.data.data);
-    });
+    fetchData().then(response => setThumbnailImgUrl(response.data));
   }
 
   const [tags, setTags] = useState(null);
@@ -80,14 +77,9 @@ const LectureClass = (props) => {
 
   useEffect(() => {
     if (!isRegistered && !content) {
-      const fetchLectureData = async () => getLecture(Number(params.lectureId));
-      fetchLectureData().then(response => setData(response.data));
-
-      const fetchClassData = async () => getClass(Number(params.lectureId));
-      fetchClassData().then(response => setClassData(response.data));
-
-      const fetchNoticeData = async () => getNotices(Number(params.lectureId));
-      fetchNoticeData().then(response => setNoticeData(response.data));
+      fetchLectureData();
+      fetchClassData();
+      fetchNoticeData();
     }
   }, []);
 
@@ -112,6 +104,21 @@ const LectureClass = (props) => {
     }
   }
 
+  const fetchLectureData = () => {
+    const fetchLectureData = async () => getLecture(params.lectureId);
+    fetchLectureData().then(response => setData(response.data));
+  }
+
+  const fetchClassData = () => {
+    const fetchClassData = async () => getClass(params.lectureId);
+    fetchClassData().then(response => setClassData(response.data));
+  }
+
+  const fetchNoticeData = () => {
+    const fetchNoticeData = async () => getNotices(params.lectureId);
+    fetchNoticeData().then(response => setNoticeData(response.data));
+  }
+
   const save = () => {
     const data = getData();
     saveLecture(data).then(response => {
@@ -122,8 +129,9 @@ const LectureClass = (props) => {
 
   const update = () => {
     const data = getData();
-    updateLecture(Number(params.lectureId), data).then(response => {
+    updateLecture(params.lectureId, data).then(response => {
       alert(response.message);
+      fetchLectureData();
     });
   }
 
@@ -131,14 +139,6 @@ const LectureClass = (props) => {
     deleteLecture(Number(params.lectureId)).then(response => {
       alert(response.message);
       navigate("/lectures", {replace: true});
-    });
-  }
-
-  const updateImage = (imageUrl) => {
-    const data = getData();
-    data.thumbnailImgUrl = imageUrl;
-    updateLecture(Number(params.lectureId), data).then(response => {
-      alert(response.message);
     });
   }
 
@@ -189,13 +189,17 @@ const LectureClass = (props) => {
                 <FormGroup>
                   <Label for="thumbnail">썸네일</Label>
                   {isRegistered ?
-                    <Input
-                      id="thumbnail"
-                      name="thumbnail"
-                      type="file"
-                      value={thumbnailImgUrl}
-                      onChange={onImgUrlHandler}
-                    /> :
+                    <>
+                      <Input
+                        id="thumbnail"
+                        name="thumbnail"
+                        type="file"
+                        onChange={onImgUrlHandler}
+                      />
+                      {thumbnailImgUrl && <Card style={{width: '30%'}}>
+                        <CardImg className="mt-3" src={thumbnailImgUrl} alt="thumbnailImgUrl"/>
+                      </Card>}
+                    </> :
                     <div>
                       <Input
                         id="thumbnail"
@@ -329,6 +333,7 @@ const LectureClass = (props) => {
                       isModify={isModify}
                       lectureId={params.lectureId}
                       classId={classId}
+                      fetchClassData={fetchClassData}
                     />
                   }
                 </>
@@ -400,6 +405,7 @@ const LectureClass = (props) => {
                       isModify={isModify}
                       lectureId={params.lectureId}
                       noticeId={noticeId}
+                      fetchNoticeData={fetchNoticeData}
                     />
                   }
                 </>

@@ -47,6 +47,7 @@ const ClassModal = (props) => {
     const data = getData();
     saveClass(props.lectureId, data).then(response => {
       alert(response.message);
+      props.fetchClassData();
       props.toggle();
     });
   }
@@ -56,6 +57,7 @@ const ClassModal = (props) => {
     console.log(data)
     updateClass(props.classId, data).then(response => {
       alert(response.message);
+      props.fetchClassData();
       props.toggle();
     });
   }
@@ -63,6 +65,7 @@ const ClassModal = (props) => {
   const remove = () => {
     deleteClass(props.classId).then(response => {
       alert(response.message);
+      props.fetchClassData();
       props.toggle();
     })
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
   Navbar,
   Collapse,
@@ -12,12 +12,12 @@ import {
 } from "reactstrap";
 import Logo from "./Logo";
 import { ReactComponent as LogoWhite } from "../assets/images/logos/adminprowhite.svg";
-import user1 from "../assets/images/users/user4.jpg";
 import "../assets/customStyle.css";
 import { useDispatch } from "react-redux";
 import { removeCookieToken } from "../token/Cookies";
 import { DELETE_TOKEN } from "../token/Auth";
 import { useNavigate} from "react-router-dom";
+import {getUser} from "../actions/MyPageActions";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -29,8 +29,15 @@ const Header = () => {
       return navigate('/login');
   }
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [imageUrl, setImageUrl] = useState(null);
+  useEffect(() => {
+    if (!imageUrl) {
+      const fetchData = async () => getUser();
+      fetchData().then(response => setImageUrl(response.data.imageUrl));
+    }
+  }, []);
 
+  const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -76,7 +83,7 @@ const Header = () => {
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
           <DropdownToggle color="transparent">
             <img
-              src={user1}
+              src={imageUrl}
               alt="profile"
               className="rounded-circle"
               width="30"
