@@ -241,7 +241,7 @@ const LectureClass = (props) => {
                     }) : <span>태그가 존재하지 않습니다.</span>}
                 </Row>
                 <Row>
-                  <div className="d-flex">
+                  <div className="d-flex mx-3">
                     {isRegistered ? (
                       <Button variant="primary" onClick={save}>
                         등록하기
