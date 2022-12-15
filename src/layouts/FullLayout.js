@@ -17,7 +17,7 @@ const FullLayout = () => {
         {/********Content Area**********/}
         <div className="contentArea">
           {/********Middle Content**********/}
-          <Container className="p-4" fluid>
+          <Container className="py-4" fluid>
             <PrivateRoute>
               <Outlet />
             </PrivateRoute>

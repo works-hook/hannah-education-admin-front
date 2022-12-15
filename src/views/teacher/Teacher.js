@@ -37,10 +37,7 @@ const Teacher = (props) => {
     formData.append('file', e.currentTarget.files[0]);
 
     const fetchData = async () => uploadImage("USER", formData);
-    fetchData().then(response => {
-      imageUpdate(response.data.data);
-      setImageUrl(response.data.data);
-    });
+    fetchData().then(response => setImageUrl(response.data));
   }
 
   const setData = (data) => {
@@ -103,7 +100,8 @@ const Teacher = (props) => {
               src={imageUrl}
               alt="profile"
               className="rounded-circle"
-              width="200"
+              width="210"
+              height="210"
             />
             <div className="d-flex mt-4 justify-content-center">
               {!props.isModify
@@ -189,7 +187,7 @@ const Teacher = (props) => {
                       id="name"
                       name="name"
                       type="date"
-                      value={brith}
+                      value={brith ? brith : ""}
                       onChange={onBrithHandler}
                     />
                   </Col>
@@ -221,18 +219,18 @@ const Teacher = (props) => {
                       <Input
                         id="oneLineIntroduce"
                         name="name"
-                        value={oneLineIntroduction}
+                        value={oneLineIntroduction ? oneLineIntroduction : ""}
                         onChange={onOneLineIntroductionHandler}
                       />
                     </InputGroup>
                   </Col>
                 </Row>
-                <Col className="introduce">
+                <div className="introduce mx-3 mb-4">
                   <h5>Introduce</h5>
                   {showViewer &&
-                    <Writer value={introduction} onContentHandler={onIntroductionHandler}/>
+                    <Writer value={introduction ? introduction : ""} onContentHandler={onIntroductionHandler}/>
                   }
-                </Col>
+                </div>
                 <div className="d-flex justify-content-end mx-4">
                   <Button onClick={update} color="secondary">
                     저장하기

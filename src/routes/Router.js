@@ -39,6 +39,10 @@ const ThemeRoutes = [
     ],
   },
   {
+    path: "/",
+    element: <Navigate to="/login" />
+  },
+  {
     path: "/login",
     element: <PublicRoute><Login /></PublicRoute>,
   },

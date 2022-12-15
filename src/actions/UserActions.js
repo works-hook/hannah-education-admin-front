@@ -17,11 +17,31 @@ import instance from "./MyAxios";
 // };
 
 export const getTags = async() => {
-    const { data } = await  instance.get(`/lecture/tags`);
+    const { data } = await instance.get(`/lecture/tags`);
     return data;
 }
 
-export function loginUser(dataToSubmit) {
+export const loginUser = async(dataToSubmit) => {
     return instance.post(`/users/login`, dataToSubmit)
         .then(response => response.data)
+}
+
+export const checkAccountDuplicate = async(dataToSubmit) => {
+    const { data } = await instance.post("/users/account", dataToSubmit);
+    return data;
+}
+
+export const certificationSend = async(dataToSubmit) => {
+    const { data } = await instance.post("/user-certification", dataToSubmit);
+    return data;
+}
+
+export const certificationCheck = async(dataToSubmit) => {
+    const { data } = await instance.post("/user-certification/check", dataToSubmit);
+    return data;
+}
+
+export const registerUser = async(dataToSubmit) => {
+    const { data } = await instance.post("/users", dataToSubmit);
+    return data;
 }

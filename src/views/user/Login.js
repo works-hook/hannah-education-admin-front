@@ -83,11 +83,11 @@ const Login = () => {
                                 Sign Up
                             </Button>
                         </Link>
-                        <Link to="/findUser">
-                            <Button color="link" size="sm">
-                                Forget your Id/Password?
-                            </Button>
-                        </Link>
+                        {/*<Link to="/findUser">*/}
+                        {/*    <Button color="link" size="sm">*/}
+                        {/*        Forget your Id/Password?*/}
+                        {/*    </Button>*/}
+                        {/*</Link>*/}
                     </ButtonGroup>
                 </div>
             </Card>
